@@ -4,6 +4,9 @@ import heroCarousel1 from "./assets/hero-carousel-1.jpeg";
 import heroCarousel2 from "./assets/hero-carousel-2.jpg";
 import heroCarousel3 from "./assets/hero-carousel-3.jpeg";
 import heroCarouselMobile from "./assets/hero-carousel-mobile.jpeg";
+import heroCarouselLightDesktop from "./assets/hero-carousel-light-desktop.jpeg";
+import heroCarouselLightMobile from "./assets/hero-carousel-light-mobile.jpeg";
+import logoLight from "./assets/logo-light.jpeg";
 
 const Logo = ({
   src = tsoftwareLogo,
@@ -35,7 +38,6 @@ const NAV_LINKS = [
   { label: "Inicio", href: "#inicio" },
   { label: "Nosotros", href: "#nosotros" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Proyectos", href: "#proyectos" },
   { label: "Contacto", href: "#contacto" },
 ];
 
@@ -95,15 +97,25 @@ const PROCESS = [
 
 const HERO_SLIDES = [heroCarousel1, heroCarousel2, heroCarousel3];
 const HERO_SLIDES_MOBILE = [heroCarouselMobile, heroCarousel3];
+const HERO_SLIDES_LIGHT = [heroCarousel1, heroCarousel2, heroCarouselLightDesktop];
+const HERO_SLIDES_LIGHT_MOBILE = [heroCarouselMobile, heroCarouselLightMobile];
 
 export default function TSoftware() {
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
   const [activeService, setActiveService] = useState(0);
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(() => (typeof window !== "undefined" ? window.innerWidth <= 768 : false));
   const heroRef = useRef(null);
-  const currentHeroSlides = isMobile ? HERO_SLIDES_MOBILE : HERO_SLIDES;
+  const currentHeroSlides =
+    theme === "light"
+      ? isMobile
+        ? HERO_SLIDES_LIGHT_MOBILE
+        : HERO_SLIDES_LIGHT
+      : isMobile
+        ? HERO_SLIDES_MOBILE
+        : HERO_SLIDES;
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -112,15 +124,20 @@ export default function TSoftware() {
   }, []);
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    const onResize = () => {
+      const nextIsMobile = window.innerWidth <= 768;
+      setIsMobile((prevIsMobile) => {
+        if (prevIsMobile !== nextIsMobile) {
+          setActiveHeroSlide(0);
+        }
+        return nextIsMobile;
+      });
+    };
+
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-
-  useEffect(() => {
-    setActiveHeroSlide(0);
-  }, [isMobile]);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -130,19 +147,34 @@ export default function TSoftware() {
     return () => window.clearInterval(intervalId);
   }, [currentHeroSlides.length]);
 
+  useEffect(() => {
+    document.body.style.background = theme === "light" ? "#d6d5d1" : "#000";
+    document.body.style.color = theme === "light" ? "#111" : "#fff";
+  }, [theme]);
+
   const navBg = scrollY > 60;
+  const navBackground = navBg
+    ? theme === "light"
+      ? "rgba(214,213,209,0.92)"
+      : "rgba(0,0,0,0.92)"
+    : "transparent";
+  const navBorder = navBg
+    ? theme === "light"
+      ? "0.5px solid #e6e6e6"
+      : "0.5px solid #1a1a1a"
+    : "none";
 
   return (
-    <div style={styles.root}>
+    <div style={styles.root} className={theme === "light" ? "light-mode" : ""}>
       <style>{css}</style>
-      <div style={styles.pageGrid} />
+      <div style={styles.pageGrid} className="page-grid" />
       <div style={styles.pageContent}>
 
       {/* NAV */}
-      <nav style={{ ...styles.nav, background: navBg ? "rgba(0,0,0,0.92)" : "transparent", backdropFilter: navBg ? "blur(20px)" : "none", borderBottom: navBg ? "0.5px solid #1a1a1a" : "none" }}>
+      <nav style={{ ...styles.nav, background: navBackground, backdropFilter: navBg ? "blur(20px)" : "none", borderBottom: navBorder }}>
         <div style={styles.navInner} className="nav-inner">
           <div style={styles.navLogo}>
-            <Logo size={36} />
+            <Logo size={36} src={theme === "light" ? logoLight : tsoftwareLogo} />
             <span style={styles.navBrand} className="nav-brand">T-SOFTWARE</span>
           </div>
           <div style={styles.navLinks} className="nav-links">
@@ -150,6 +182,28 @@ export default function TSoftware() {
               <a key={l.label} href={l.href} style={styles.navLink} className="nav-link">{l.label}</a>
             ))}
           </div>
+          <button
+            type="button"
+            onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+            style={styles.themeToggle}
+            className="theme-toggle"
+            aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"}
+          >
+            {theme === "dark" ? (
+              <span className="theme-icon theme-icon-sun" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="4.2" stroke="white" strokeWidth="1.8" />
+                  <path d="M12 2.5v2.4M12 19.1v2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </span>
+            ) : (
+              <span className="theme-icon theme-icon-moon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 14.6A8.4 8.4 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z" stroke="white" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            )}
+          </button>
           <a href="#contacto" style={styles.navCta} className="cta-btn nav-cta">Hablemos</a>
           <button style={styles.burger} className="burger-btn" onClick={() => setMenuOpen(!menuOpen)}>
             <span style={{ ...styles.burgerLine, transform: menuOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
@@ -158,7 +212,7 @@ export default function TSoftware() {
           </button>
         </div>
         {menuOpen && (
-          <div style={styles.mobileMenu}>
+          <div style={styles.mobileMenu} className="mobile-menu">
             {NAV_LINKS.map((l) => (
               <a key={l.label} href={l.href} style={styles.mobileLink} onClick={() => setMenuOpen(false)}>{l.label}</a>
             ))}
@@ -168,7 +222,7 @@ export default function TSoftware() {
 
       {/* HERO */}
       <section ref={heroRef} id="inicio" style={styles.hero} className="hero-section">
-        <div style={styles.heroBgCarousel}>
+        <div style={styles.heroBgCarousel} className="hero-bg-carousel">
           {currentHeroSlides.map((image, index) => (
             <div
               key={image}
@@ -180,30 +234,30 @@ export default function TSoftware() {
             />
           ))}
         </div>
-        <div style={styles.heroOverlay} />
-        <div style={styles.heroGrid} />
-        <div style={{ ...styles.heroGlow, transform: `translateY(${scrollY * 0.3}px)` }} />
+        <div style={styles.heroOverlay} className="hero-overlay" />
+        <div style={styles.heroGrid} className="hero-grid" />
+        <div style={{ ...styles.heroGlow, transform: `translateY(${scrollY * 0.3}px)` }} className="hero-glow" />
         <div style={styles.heroContent} className="fade-in hero-content">
           <div style={styles.heroMain} className="hero-main">
             <div style={styles.heroTextCol} className="hero-text-col">
               <div style={styles.heroPill} className="slide-up hero-pill">
-                <span style={styles.heroPillDot} />
-                · Disponible para proyectos
+                <span style={styles.heroPillDot} className="hero-pill-dot" />
+                Disponible para proyectos
               </div>
               <h1 style={styles.heroTitle} className="slide-up-delay hero-title">
-                T-SOFT<span style={styles.heroTitleAccentInline}>WARE</span>
+                T-SOFT<span style={styles.heroTitleAccentInline} className="hero-title-accent-inline">WARE</span>
               </h1>
               <p style={styles.heroSub} className="slide-up-delay-2 hero-sub">
                 Apps, webs y sistemas a medida.<br />Con tecnología de punta.
               </p>
               <div style={styles.heroActions} className="slide-up-delay-3 hero-actions">
-                <a href="#contacto" style={styles.btnPrimary} className="cta-btn">Empezar proyecto</a>
+                <a href="https://wa.me/5493886576724" target="_blank" rel="noreferrer" style={styles.btnPrimary} className="cta-btn">Empezar proyecto</a>
                 <a href="#servicios" style={styles.btnGhost} className="ghost-btn">Ver servicios →</a>
               </div>
               <div style={styles.heroStats} className="hero-stats">
                 {STATS.map((s) => (
                   <div key={s.label} style={styles.heroStat}>
-                    <span style={styles.heroStatVal}>{s.value}</span>
+                    <span style={styles.heroStatVal} className="hero-stat-val">{s.value}</span>
                     <span style={styles.heroStatLabel}>{s.label}</span>
                   </div>
                 ))}
@@ -214,7 +268,14 @@ export default function TSoftware() {
               <div style={styles.introOrbRingTechB} className="intro-orb-ring-tech-b" />
               <div style={styles.introOrbRingCore} className="intro-orb-ring-core" />
               <div style={styles.introOrbLogo} className="intro-orb-logo">
-                <Logo size="100%" objectPosition="center" objectFit="cover" transform="none" borderRadius="50%" />
+                <Logo
+                  size="100%"
+                  src={theme === "light" ? logoLight : tsoftwareLogo}
+                  objectPosition="center"
+                  objectFit="cover"
+                  transform="none"
+                  borderRadius="50%"
+                />
               </div>
             </div>
           </div>
@@ -235,7 +296,7 @@ export default function TSoftware() {
       </section>
 
       {/* LOGOS BAR */}
-      <div style={styles.logosBar}>
+      <div style={styles.logosBar} className="logos-bar">
         <div style={styles.logosInner} className="logos-inner">
           {["React", "Node.js", "Flutter", "Python", "OpenAI", "Firebase", "AWS", "PostgreSQL"].map((t) => (
             <span key={t} style={styles.logoTag} className="logo-tag">{t}</span>
@@ -249,7 +310,7 @@ export default function TSoftware() {
           <div style={styles.aboutGrid} className="about-grid">
             <div style={styles.aboutLeft}>
               <div style={styles.sectionLabel}>SOBRE NOSOTROS</div>
-              <h2 style={styles.aboutTitle}>
+              <h2 style={styles.aboutTitle} className="about-title">
                 Una Familia<br />
                 <span style={styles.accent}>Una visión.</span>
               </h2>
@@ -264,17 +325,17 @@ export default function TSoftware() {
             <div style={styles.aboutRight}>
               <div style={styles.aboutCard} className="about-card">
                 <div style={styles.aboutCardTop}>
-                  <Logo size={48} />
+                  <Logo size={48} src={theme === "light" ? logoLight : tsoftwareLogo} />
                   <div>
-                    <div style={styles.aboutCardTitle}>T-Software Agency</div>
-                    <div style={styles.aboutCardSub}>· Argentina · 2026</div>
+                    <div style={styles.aboutCardTitle} className="about-card-title">T-Software Agency</div>
+                    <div style={styles.aboutCardSub} className="about-card-sub">· Argentina · 2026</div>
                   </div>
                 </div>
                 <div style={styles.aboutDivider} />
                 <div style={styles.aboutPoints}>
                   {["Desarrollo a medida 100%", "Comunicación directa con el equipo", "Sin intermediarios", "Precios transparentes", "Soporte post-entrega incluido"].map((p) => (
                     <div key={p} style={styles.aboutPoint}>
-                      <span style={styles.aboutPointDot}>◆</span>
+                      <span style={styles.aboutPointDot} className="about-point-dot">◆</span>
                       <span>{p}</span>
                     </div>
                   ))}
@@ -290,7 +351,7 @@ export default function TSoftware() {
         <div style={styles.container}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>NUESTROS SERVICIOS</div>
-            <h2 style={styles.sectionTitle}>Lo que construimos</h2>
+            <h2 style={styles.sectionTitle} className="section-title">Lo que construimos</h2>
             <p style={styles.sectionSub}>Soluciones digitales completas para negocios que quieren crecer.</p>
           </div>
           <div style={styles.servicesGrid} className="services-grid">
@@ -301,8 +362,8 @@ export default function TSoftware() {
                 className="service-card"
                 onMouseEnter={() => setActiveService(i)}
               >
-                <div style={styles.serviceIcon}>{s.icon}</div>
-                <h3 style={styles.serviceTitle}>{s.title}</h3>
+                <div style={styles.serviceIcon} className="service-icon">{s.icon}</div>
+                <h3 style={styles.serviceTitle} className="service-title">{s.title}</h3>
                 <p style={styles.serviceDesc}>{s.desc}</p>
                 <div style={styles.serviceArrow} className="service-arrow">→</div>
               </div>
@@ -316,7 +377,7 @@ export default function TSoftware() {
         <div style={styles.container}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>CÓMO TRABAJAMOS</div>
-            <h2 style={styles.sectionTitle}>Del concepto al producto<br /><span style={styles.accent}>en 4 pasos.</span></h2>
+            <h2 style={styles.sectionTitle} className="section-title">Del concepto al producto<br /><span style={styles.accent}>en 4 pasos.</span></h2>
           </div>
           <div style={styles.processGrid} className="process-grid">
             {PROCESS.map((p, i) => (
@@ -324,7 +385,7 @@ export default function TSoftware() {
                 <div style={styles.processNum}>{p.num}</div>
                 {i < PROCESS.length - 1 && <div style={styles.processLine} className="process-line" />}
                 <div style={styles.processBody}>
-                  <h3 style={styles.processTitle}>{p.title}</h3>
+                  <h3 style={styles.processTitle} className="process-title">{p.title}</h3>
                   <p style={styles.processDesc}>{p.desc}</p>
                 </div>
               </div>
@@ -338,7 +399,7 @@ export default function TSoftware() {
         <div style={styles.container}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>VOCES DE CLIENTES</div>
-            <h2 style={styles.sectionTitle}>Lo que dicen<br />de nosotros.</h2>
+            <h2 style={styles.sectionTitle} className="section-title">Lo que dicen<br />de nosotros.</h2>
           </div>
           <div style={styles.testimonialsGrid} className="testimonials-grid">
             {TESTIMONIALS.map((t) => (
@@ -350,7 +411,7 @@ export default function TSoftware() {
                     {t.name[0]}
                   </div>
                   <div>
-                    <div style={styles.testimonialName}>{t.name}</div>
+                    <div style={styles.testimonialName} className="testimonial-name">{t.name}</div>
                     <div style={styles.testimonialRole}>{t.role}</div>
                   </div>
                 </div>
@@ -365,7 +426,7 @@ export default function TSoftware() {
         <div style={styles.ctaBannerGlow} />
         <div style={styles.ctaContent} className="cta-content">
           <div style={styles.sectionLabel}>EMPEZÁ HOY</div>
-          <h2 style={styles.ctaTitle}>¿Tu negocio listo<br />para el siguiente nivel?</h2>
+          <h2 style={styles.ctaTitle} className="cta-title">¿Tu negocio listo<br />para el siguiente nivel?</h2>
           <p style={styles.ctaSub}>Primera consulta sin costo. Respondemos en menos de 24 horas.</p>
           <div style={styles.ctaActions} className="cta-actions">
             <a href="https://wa.me/5493886576724" style={styles.btnPrimary} className="cta-btn">
@@ -382,30 +443,89 @@ export default function TSoftware() {
       <footer style={styles.footer} className="footer">
         <div style={styles.footerTop} className="footer-top">
           <div style={styles.footerBrand}>
-            <Logo size={36} />
+            <Logo size={36} src={theme === "light" ? logoLight : tsoftwareLogo} />
             <div>
-              <div style={styles.footerBrandName}>T-SOFTWARE</div>
+              <div style={styles.footerBrandName} className="footer-brand-name">T-SOFTWARE</div>
               <div style={styles.footerBrandSub}>AGENCY</div>
             </div>
           </div>
           <div style={styles.footerLinks} className="footer-links">
             <div style={styles.footerCol}>
-              <div style={styles.footerColTitle}>Contacto</div>
-              <a href="https://instagram.com/t_software.agency" style={styles.footerLink} className="footer-link">@t_software.agency</a>
-              <a href="https://wa.me/5493884000000" style={styles.footerLink} className="footer-link">WhatsApp</a>
-              <span style={styles.footerLink}>Jujuy, Argentina</span>
+              <div style={styles.footerColTitle} className="footer-col-title">Contacto</div>
+              <a
+                href="https://instagram.com/t_software.agency"
+                target="_blank"
+                rel="noreferrer"
+                style={styles.footerIconLink}
+                className="footer-link footer-icon-link"
+                aria-label="Instagram oficial de T-Software"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="footer-icon-svg">
+                  <rect x="2.75" y="2.75" width="18.5" height="18.5" rx="5.2" stroke="currentColor" strokeWidth="1.7" />
+                  <circle cx="12" cy="12" r="4.35" stroke="currentColor" strokeWidth="1.7" />
+                  <circle cx="17.55" cy="6.55" r="1.25" fill="currentColor" />
+                </svg>
+                <span>@t_software.agency</span>
+              </a>
+              <a
+                href="https://wa.me/5493886576724"
+                target="_blank"
+                rel="noreferrer"
+                style={styles.footerIconLink}
+                className="footer-link footer-icon-link"
+                aria-label="WhatsApp de T-Software"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="footer-icon-svg">
+                  <path d="M12 3.2c-4.86 0-8.8 3.84-8.8 8.58 0 1.64.48 3.23 1.39 4.6L3.4 21l4.74-1.24a8.94 8.94 0 0 0 3.86.86c4.86 0 8.8-3.84 8.8-8.58 0-4.74-3.94-8.84-8.8-8.84Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M9.08 8.76c.18-.38.4-.44.67-.44h.58c.2 0 .42.03.53.32l.86 2.09c.1.25.07.44-.02.58l-.43.61c-.15.19-.11.4.01.58.29.49.78 1.15 1.5 1.74.87.72 1.66 1.07 2.16 1.27.23.09.41.03.56-.14l.67-.77c.17-.2.39-.24.61-.14l1.89.87c.2.1.34.21.37.45v.62c-.02.35-.2.62-.5.82-.52.33-1.34.57-2.2.33-1.07-.28-2.43-.79-3.9-2.03-1.35-1.14-2.28-2.54-2.72-3.68-.38-.98-.3-1.9-.04-2.44Z" fill="currentColor" />
+                </svg>
+                <span>WhatsApp</span>
+              </a>
+              <a
+                href="mailto:t_software_agency@gmail.com"
+                style={styles.footerIconLink}
+                className="footer-link footer-icon-link"
+                aria-label="Email de T-Software"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="footer-icon-svg">
+                  <rect x="3" y="5" width="18" height="14" rx="2.4" stroke="currentColor" strokeWidth="1.7" />
+                  <path d="M4.2 6.4 12 12.2l7.8-5.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>t_software_agency@gmail.com</span>
+              </a>
+             
+            </div>
+            <div style={styles.footerCol}>
+              <div style={styles.footerColTitle} className="footer-col-title">Servicios</div>
+              <span style={styles.footerLink}>Desarrollo Web</span>
+              <span style={styles.footerLink}>Apps Móviles</span>
+              <span style={styles.footerLink}>Sistemas de Gestión</span>
+              <span style={styles.footerLink}>Automatización con IA</span>
+            </div>
+            <div style={styles.footerCol}>
+              <div style={styles.footerColTitle} className="footer-col-title">Atención</div>
+              <span style={styles.footerLink}>Respuesta en menos de 24hs</span>
+              <span style={styles.footerLink}>Consulta inicial sin costo</span>
             </div>
           </div>
         </div>
         <div style={styles.footerBottom} className="footer-bottom">
-          <span style={styles.footerCopy}>© 2025 T-Software Agency. Todos los derechos reservados.</span>
-          <div style={styles.footerSocials}>
-            {["IG", "WA", "GH"].map((s) => (
-              <a key={s} href="#" style={styles.footerSocial} className="footer-social">{s}</a>
-            ))}
-          </div>
+          <span style={styles.footerCopy}>© 2026 T-Software Agency. Todos los derechos reservados.</span>
         </div>
       </footer>
+      <a
+        href="https://wa.me/5493886576724"
+        target="_blank"
+        rel="noreferrer"
+        style={styles.whatsappFloat}
+        className="whatsapp-float"
+        aria-label="Escribinos por WhatsApp"
+      >
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="whatsapp-float-icon">
+          <path d="M16.02 4C9.4 4 4.03 9.2 4.03 15.62c0 2.06.57 4.08 1.64 5.84L4 28l6.76-1.72a12.28 12.28 0 0 0 5.26 1.16C22.64 27.44 28 22.24 28 15.82 28 9.4 22.64 4 16.02 4Z" fill="currentColor" />
+          <path d="M22.94 19.18c-.29.78-1.44 1.45-2.04 1.5-.55.05-1.25.08-2.02-.13-.46-.12-1.06-.34-1.82-.66-3.2-1.37-5.29-4.47-5.45-4.68-.16-.21-1.3-1.68-1.3-3.2 0-1.53.82-2.28 1.11-2.6.29-.31.64-.39.85-.39h.61c.2.01.46-.07.72.54.27.63.91 2.16.99 2.32.08.15.13.34.03.55-.1.21-.15.34-.31.52-.16.18-.33.4-.47.54-.16.16-.32.33-.14.64.18.31.8 1.28 1.72 2.07 1.18.99 2.17 1.3 2.49 1.45.32.16.51.13.69-.08.19-.21.8-.91 1.01-1.22.21-.31.43-.26.72-.16.29.1 1.86.85 2.18 1 .32.16.53.23.61.36.08.13.08.86-.2 1.63Z" fill="currentColor" />
+        </svg>
+      </a>
       </div>
     </div>
   );
@@ -429,6 +549,11 @@ const css = `
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-pill-dot { animation: availabilityPulse 2.8s ease-in-out infinite; }
+  @keyframes availabilityPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.28); }
+    50% { opacity: 0.75; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+  }
 
   .scroll-hint { animation: scrollHint 2s ease-in-out infinite; }
   @keyframes scrollHint {
@@ -438,6 +563,9 @@ const css = `
 
   .nav-link { transition: color 0.2s; }
   .nav-link:hover { color: #fff !important; }
+  .theme-toggle { transition: all 0.2s !important; }
+  .theme-toggle:hover { transform: translateY(-1px); }
+  .theme-icon { display: inline-flex; align-items: center; justify-content: center; }
 
   .cta-btn { transition: all 0.2s !important; }
   .cta-btn:hover { background: #e0e0e0 !important; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,0.15) !important; }
@@ -446,7 +574,7 @@ const css = `
   .ghost-btn:hover { background: rgba(255,255,255,0.08) !important; transform: translateY(-2px); }
 
   .service-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important; }
-  .service-card:hover { transform: translateY(-8px) !important; border-color: rgba(255,255,255,0.3) !important; background: rgba(255,255,255,0.06) !important; }
+  .service-card:hover { transform: translateY(-8px) !important; border: none !important; background: rgba(255,255,255,0.06) !important; }
 
   .service-arrow { transition: transform 0.2s !important; }
   .service-card:hover .service-arrow { transform: translate(4px,-4px) !important; }
@@ -463,8 +591,9 @@ const css = `
   .footer-link { transition: color 0.2s !important; }
   .footer-link:hover { color: #fff !important; }
 
-  .footer-social { transition: all 0.2s !important; }
-  .footer-social:hover { background: #fff !important; color: #000 !important; }
+  .whatsapp-float { transition: background 0.2s, color 0.2s, border-color 0.2s !important; }
+  .whatsapp-float:hover { box-shadow: 0 12px 28px rgba(255,255,255,0.14) !important; }
+  .whatsapp-float-icon { display: block; flex: 0 0 auto; width: 32px; height: 32px; }
 
   .process-step { transition: transform 0.2s !important; }
   .process-step:hover { transform: translateY(-4px) !important; }
@@ -542,6 +671,7 @@ const css = `
       padding: 0 16px !important;
       height: 60px !important;
       gap: 12px !important;
+      position: relative !important;
     }
 
     .nav-brand,
@@ -553,6 +683,16 @@ const css = `
     .burger-btn {
       display: flex !important;
       margin-left: auto !important;
+    }
+
+    .theme-toggle {
+      position: absolute !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-left: 0 !important;
+      width: 34px !important;
+      height: 34px !important;
+      padding: 0 !important;
     }
 
     .hero-section,
@@ -612,9 +752,7 @@ const css = `
     .hero-actions { order: 5 !important; }
     .hero-stats { order: 6 !important; }
 
-    .hero-pill {
-      
-    }
+    .hero-pill { margin-top: 20px !important; }
 
     .hero-content > * {
       margin-left: auto !important;
@@ -623,7 +761,7 @@ const css = `
 
     .hero-title {
     margin-bottom: 50px !important;
-      padding-top: 150px;
+      padding-top: 30px;
       font-size: clamp(40px, 9vw, 48px) !important;
       line-height: 1.08 !important;
       text-wrap: balance !important;
@@ -711,6 +849,27 @@ const css = `
       align-items: flex-start !important;
     }
 
+    .whatsapp-float {
+      right: 16px !important;
+      bottom: 16px !important;
+      width: 56px !important;
+      height: 56px !important;
+      transform: none !important;
+      backface-visibility: hidden !important;
+      -webkit-font-smoothing: antialiased !important;
+      box-shadow: none !important;
+    }
+
+    .whatsapp-float:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .whatsapp-float-icon {
+      width: 32px !important;
+      height: 32px !important;
+    }
+
     .intro-frame {
       min-height: auto !important;
       padding: 20px !important;
@@ -754,6 +913,218 @@ const css = `
       width: 150px !important;
       height: 150px !important;
     }
+  }
+
+  .light-mode {
+    background: #d6d5d1 !important;
+    color: #111 !important;
+  }
+
+  .light-mode .page-grid {
+    background-image: linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px) !important;
+  }
+
+  .light-mode .nav-link,
+  .light-mode .nav-brand,
+  .light-mode .section-title,
+  .light-mode .about-title,
+  .light-mode .cta-title,
+  .light-mode .footer-col-title,
+  .light-mode .footer-brand-name,
+  .light-mode .testimonial-name,
+  .light-mode .process-title,
+  .light-mode .service-title {
+    color: #111 !important;
+  }
+
+  .light-mode .nav-link:hover {
+    color: #000 !important;
+  }
+
+  .light-mode .burger-btn span {
+    background: #000 !important;
+  }
+
+  .light-mode .theme-toggle {
+    border-color: #2a2a2a !important;
+    color: #fff !important;
+    background: #111 !important;
+  }
+
+  .light-mode .nav-cta,
+  .light-mode .cta-btn {
+    background: #111 !important;
+    color: #fff !important;
+  }
+
+  .light-mode .ghost-btn {
+    color: #222 !important;
+    border-color: #d8d8d8 !important;
+  }
+
+  .light-mode .hero-pill {
+    color: #111 !important;
+    border-color: #bcbcbc !important;
+  }
+
+  .light-mode .hero-pill span {
+    background: #111 !important;
+  }
+
+  .light-mode .hero-title,
+  .light-mode .hero-sub,
+  .light-mode .hero-stat-val {
+    color: #111 !important;
+  }
+
+  .light-mode .hero-stat-val {
+    color: #000 !important;
+  }
+
+  .light-mode .hero-title-accent-inline {
+    color: transparent !important;
+    -webkit-text-stroke: 1.5px #000 !important;
+  }
+
+  .light-mode .hero-overlay {
+    background: rgba(214,213,209,0.68) !important;
+  }
+
+  .light-mode .hero-grid {
+    background-image: linear-gradient(rgba(0,0,0,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.12) 1px,transparent 1px) !important;
+  }
+
+  .light-mode .hero-stat-label {
+    color: #555 !important;
+  }
+
+  .light-mode .hero-section .cta-btn {
+    background: #111 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+
+  .light-mode .hero-section .ghost-btn {
+    color: #111 !important;
+    border-color: #bcbcbc !important;
+    background: transparent !important;
+  }
+
+  .light-mode .section-title span,
+  .light-mode .about-title span {
+    color: transparent !important;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.45) !important;
+  }
+
+  .light-mode .intro-title span {
+    color: transparent !important;
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.5) !important;
+  }
+
+  .light-mode .logo-tag,
+  .light-mode .service-card,
+  .light-mode .testimonial-card,
+  .light-mode .about-card,
+  .light-mode .footer-icon-link {
+    background: #d6d5d1 !important;
+    border-color: #ddd !important;
+    color: #111 !important;
+  }
+
+  .light-mode .testimonial-card:hover,
+  .light-mode .about-card:hover {
+    background: rgba(255,255,255,0.14) !important;
+    border-color: #000 !important;
+    color: #111 !important;
+    backdrop-filter: none !important;
+  }
+
+  .light-mode .service-card {
+    border: 0.5px solid rgba(0,0,0,0.18) !important;
+  }
+
+  .light-mode .service-card:hover {
+    background: rgba(255,255,255,0.06) !important;
+    border: 0.5px solid rgba(0,0,0,0.3) !important;
+  }
+
+  .light-mode .service-card:hover .service-title,
+  .light-mode .service-card:hover .service-icon,
+  .light-mode .testimonial-card:hover .testimonial-name,
+  .light-mode .about-card:hover .about-card-title,
+  .light-mode .about-card:hover {
+    color: #111 !important;
+  }
+
+  .light-mode .service-card:hover p,
+  .light-mode .testimonial-card:hover p,
+  .light-mode .about-card:hover span,
+  .light-mode .about-card:hover div {
+    color: #333 !important;
+  }
+
+  .light-mode .service-card:hover .service-arrow {
+    color: #000 !important;
+  }
+
+  .light-mode .about-card:hover .about-point-dot {
+    color: #000 !important;
+  }
+
+  .light-mode .footer-icon-svg {
+    color: #111 !important;
+  }
+
+  .light-mode .mobile-menu {
+    background: #d6d5d1 !important;
+    border-top: 0.5px solid #e6e6e6 !important;
+  }
+
+  .light-mode .mobile-menu a {
+    color: #333 !important;
+  }
+
+  .light-mode .intro-title {
+    color: #111 !important;
+  }
+
+  .light-mode .about-point-dot {
+    color: #000 !important;
+  }
+
+  .light-mode .service-icon {
+    color: #000 !important;
+  }
+
+  .light-mode .intro-orb-ring-tech-a {
+    border-color: #000 !important;
+    background: conic-gradient(from 18deg, #000 0deg 18deg, transparent 18deg 128deg, #000 128deg 152deg, transparent 152deg 262deg, #000 262deg 286deg, transparent 286deg 360deg) !important;
+  }
+
+  .light-mode .intro-orb-ring-tech-b {
+    border-color: #000 !important;
+    background: conic-gradient(from 212deg, transparent 0deg 56deg, #000 56deg 70deg, transparent 70deg 192deg, #000 192deg 206deg, transparent 206deg 330deg, #000 330deg 344deg, transparent 344deg 360deg) !important;
+  }
+
+  .light-mode .intro-orb-ring-core {
+    border-color: #000 !important;
+    box-shadow: inset 0 0 10px #000 !important;
+  }
+
+  .light-mode .footer,
+  .light-mode .logos-bar {
+    border-color: #e6e6e6 !important;
+  }
+
+  .light-mode .whatsapp-float {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .light-mode .whatsapp-float:hover {
+    box-shadow: none !important;
   }
 
   @media (max-width: 480px) {
@@ -887,12 +1258,13 @@ const styles = {
   navLogo: { display: "flex", alignItems: "center", gap: 10, textDecoration: "none" },
   navBrand: { fontSize: 12, fontWeight: 500, letterSpacing: "0.24em", color: "#fff" },
   navLinks: { display: "flex", gap: 28, marginLeft: "auto" },
-  navLink: { fontSize: 12, color: "#666", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400 },
+  navLink: { fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400 },
+  themeToggle: { marginLeft: 24, width: 34, height: 34, border: "0.5px solid #2a2a2a", color: "#fff", background: "#111", borderRadius: "50%", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", lineHeight: 1, flexShrink: 0 },
   navCta: { fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: "#000", background: "#fff", padding: "8px 20px", borderRadius: 4, textDecoration: "none", textTransform: "uppercase" },
   burger: { display: "none", flexDirection: "column", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 4 },
   burgerLine: { width: 22, height: 1.5, background: "#fff", transition: "all 0.3s", display: "block" },
   mobileMenu: { background: "#000", borderTop: "0.5px solid #1a1a1a", padding: "16px 24px", display: "flex", flexDirection: "column", gap: 12 },
-  mobileLink: { fontSize: 15, color: "#888", textDecoration: "none", padding: "8px 0" },
+  mobileLink: { fontSize: 15, color: "#aaa", textDecoration: "none", padding: "8px 0" },
 
   // INTRO POSTER
   introPoster: { background: "transparent", padding: "110px 24px 72px" },
@@ -924,19 +1296,19 @@ const styles = {
   heroSub: { fontSize: 15, color: "#fff", lineHeight: 1.8, maxWidth: 420, fontWeight: 300 },
   heroActions: { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" },
   btnPrimary: { fontSize: 12, fontWeight: 500, color: "#000", background: "#fff", padding: "12px 28px", borderRadius: 4, textDecoration: "none", letterSpacing: "0.08em", display: "inline-block", textTransform: "uppercase" },
-  btnGhost: { fontSize: 12, fontWeight: 400, color: "#888", background: "transparent", padding: "12px 20px", borderRadius: 4, textDecoration: "none", border: "0.5px solid #2a2a2a", letterSpacing: "0.06em" },
+  btnGhost: { fontSize: 12, fontWeight: 400, color: "#aaa", background: "transparent", padding: "12px 20px", borderRadius: 4, textDecoration: "none", border: "0.5px solid #2a2a2a", letterSpacing: "0.06em" },
   heroStats: { display: "flex", gap: 32, flexWrap: "wrap", marginTop: "auto" },
   heroStat: { display: "flex", flexDirection: "column", gap: 4 },
   heroStatVal: { fontSize: 26, fontWeight: 500, color: "#fff" },
-  heroStatLabel: { fontSize: 11, color: "#555", letterSpacing: "0.08em", textTransform: "uppercase" },
+  heroStatLabel: { fontSize: 11, color: "#777", letterSpacing: "0.08em", textTransform: "uppercase" },
   scrollHint: { position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, zIndex: 5 },
-  scrollLine: { width: 0.5, height: 40, background: "linear-gradient(to bottom, transparent, #444)" },
-  scrollText: { fontSize: 9, color: "#444", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
+  scrollLine: { width: 0.5, height: 40, background: "linear-gradient(to bottom, transparent, #666)" },
+  scrollText: { fontSize: 9, color: "#666", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
 
   // LOGOS BAR
   logosBar: { borderTop: "0.5px solid #111", borderBottom: "0.5px solid #111", padding: "16px 0", overflow: "hidden" },
-  logosInner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" },
-  logoTag: { fontSize: 11, color: "#444", border: "0.5px solid #222", borderRadius: 4, padding: "4px 12px", letterSpacing: "0.06em", fontFamily: "'Space Mono', monospace", cursor: "default" },
+  logosInner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center", justifyContent: "center" },
+  logoTag: { fontSize: 11, color: "#666", border: "0.5px solid #222", borderRadius: 4, padding: "4px 12px", letterSpacing: "0.06em", fontFamily: "'Space Mono', monospace", cursor: "default" },
 
   // ABOUT
   about: { padding: "100px 24px" },
@@ -946,30 +1318,30 @@ const styles = {
   aboutRight: {},
   aboutTitle: { fontSize: "clamp(38px, 5.2vw, 64px)", fontWeight: 400, lineHeight: 1.06, letterSpacing: "-0.015em", textTransform: "uppercase" },
   aboutCta: { fontSize: 12, fontWeight: 500, color: "#000", background: "#fff", padding: "10px 18px", borderRadius: 4, textDecoration: "none", letterSpacing: "0.06em", display: "inline-block", textTransform: "uppercase", width: "fit-content", alignSelf: "flex-start", marginTop: 6 },
-  sectionLabel: { fontSize: 10, color: "#555", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace", marginBottom: 12 },
+  sectionLabel: { fontSize: 10, color: "#777", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace", marginBottom: 12 },
   sectionTitle: { fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase" },
   accent: { color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.4)" },
-  aboutText: { fontSize: 15, color: "#666", lineHeight: 1.85, fontWeight: 300 },
+  aboutText: { fontSize: 15, color: "#8a8a8a", lineHeight: 1.85, fontWeight: 300 },
   aboutCard: { background: "#0a0a0a", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 36, minHeight: 430 },
   aboutCardTop: { display: "flex", alignItems: "center", gap: 18, marginBottom: 24 },
   aboutCardTitle: { fontSize: 18, fontWeight: 700, letterSpacing: "0.06em" },
-  aboutCardSub: { fontSize: 13, color: "#555", fontFamily: "'Space Mono', monospace", marginTop: 6 },
+  aboutCardSub: { fontSize: 13, color: "#777", fontFamily: "'Space Mono', monospace", marginTop: 6 },
   aboutDivider: { height: 0.5, background: "#1a1a1a", marginBottom: 24 },
   aboutPoints: { display: "flex", flexDirection: "column", gap: 14 },
-  aboutPoint: { display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#888" },
+  aboutPoint: { display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#aaa" },
   aboutPointDot: { fontSize: 10, color: "#fff" },
 
   // SERVICES
   services: { padding: "100px 24px", background: "transparent" },
   sectionHeader: { textAlign: "center", marginBottom: 60 },
-  sectionSub: { fontSize: 15, color: "#555", marginTop: 12, maxWidth: 480, margin: "12px auto 0" },
+  sectionSub: { fontSize: 15, color: "#777", marginTop: 12, maxWidth: 480, margin: "12px auto 0" },
   servicesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 },
-  serviceCard: { background: "#0a0a0a", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 14, cursor: "pointer" },
-  serviceCardActive: { borderColor: "rgba(255,255,255,0.2)", background: "#121212" },
+  serviceCard: { background: "#0a0a0a", border: "none", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 14, cursor: "pointer" },
+  serviceCardActive: { border: "none", background: "#121212" },
   serviceIcon: { fontSize: 24, color: "#fff" },
   serviceTitle: { fontSize: 17, fontWeight: 500 },
-  serviceDesc: { fontSize: 13, color: "#666", lineHeight: 1.7, flex: 1 },
-  serviceArrow: { fontSize: 18, color: "#444", marginTop: 8, display: "block" },
+  serviceDesc: { fontSize: 13, color: "#8a8a8a", lineHeight: 1.7, flex: 1 },
+  serviceArrow: { fontSize: 18, color: "#666", marginTop: 8, display: "block" },
 
   // PROCESS
   process: { padding: "100px 24px" },
@@ -979,25 +1351,25 @@ const styles = {
   processLine: { position: "absolute", top: 28, left: "calc(100% - 12px)", width: "24px", height: 0.5, background: "#222" },
   processBody: {},
   processTitle: { fontSize: 16, fontWeight: 500, marginBottom: 8 },
-  processDesc: { fontSize: 13, color: "#555", lineHeight: 1.7 },
+  processDesc: { fontSize: 13, color: "#777", lineHeight: 1.7 },
 
   // TESTIMONIALS
   testimonials: { padding: "100px 24px", background: "transparent" },
   testimonialsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginTop: 60 },
   testimonialCard: { background: "#0a0a0a", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 16 },
   testimonialQuote: { fontSize: 48, color: "#222", lineHeight: 1, fontFamily: "Georgia, serif" },
-  testimonialText: { fontSize: 14, color: "#888", lineHeight: 1.8, flex: 1 },
+  testimonialText: { fontSize: 14, color: "#aaa", lineHeight: 1.8, flex: 1 },
   testimonialAuthor: { display: "flex", alignItems: "center", gap: 12, paddingTop: 16, borderTop: "0.5px solid #1a1a1a" },
   testimonialAvatar: { width: 36, height: 36, borderRadius: "50%", background: "#1a1a1a", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#fff", flexShrink: 0 },
   testimonialName: { fontSize: 13, fontWeight: 500 },
-  testimonialRole: { fontSize: 11, color: "#555", fontFamily: "'Space Mono', monospace", marginTop: 2 },
+  testimonialRole: { fontSize: 11, color: "#777", fontFamily: "'Space Mono', monospace", marginTop: 2 },
 
   // CTA
   ctaBanner: { padding: "100px 24px", position: "relative", overflow: "hidden", borderTop: "0.5px solid #111" },
   ctaBannerGlow: { position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%)", pointerEvents: "none" },
   ctaContent: { maxWidth: 640, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: 20, alignItems: "center" },
   ctaTitle: { fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase", fontFamily: "'Outfit', sans-serif" },
-  ctaSub: { fontSize: 15, color: "#555", lineHeight: 1.7 },
+  ctaSub: { fontSize: 15, color: "#777", lineHeight: 1.7 },
   ctaActions: { display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" },
 
   // FOOTER
@@ -1005,13 +1377,13 @@ const styles = {
   footerTop: { maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 2fr", gap: 60, paddingBottom: 48, borderBottom: "0.5px solid #111", marginBottom: 24 },
   footerBrand: { display: "flex", alignItems: "center", gap: 12 },
   footerBrandName: { fontSize: 13, fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase" },
-  footerBrandSub: { fontSize: 10, color: "#444", letterSpacing: "0.2em", fontFamily: "'Space Mono', monospace" },
-  footerLinks: { display: "block", width: "100%", textAlign: "center" },
+  footerBrandSub: { fontSize: 10, color: "#666", letterSpacing: "0.2em", fontFamily: "'Space Mono', monospace" },
+  footerLinks: { display: "grid", width: "100%", textAlign: "center", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 24 },
   footerCol: { display: "flex", flexDirection: "column", gap: 12, alignItems: "center" },
   footerColTitle: { fontSize: 11, color: "#fff", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 4, fontWeight: 500 },
-  footerLink: { fontSize: 13, color: "#444", textDecoration: "none", display: "block" },
+  footerLink: { fontSize: 13, color: "#666", textDecoration: "none", display: "block" },
+  footerIconLink: { fontSize: 13, color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, border: "0.5px solid #222", borderRadius: 8, padding: "8px 12px", background: "#0a0a0a" },
   footerBottom: { maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" },
-  footerCopy: { fontSize: 11, color: "#333", fontFamily: "'Space Mono', monospace" },
-  footerSocials: { display: "flex", gap: 8 },
-  footerSocial: { width: 32, height: 32, border: "0.5px solid #222", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: "#555", textDecoration: "none", fontFamily: "'Space Mono', monospace" },
+  footerCopy: { fontSize: 11, color: "#555", fontFamily: "'Space Mono', monospace" },
+  whatsappFloat: { position: "fixed", right: 24, bottom: 24, zIndex: 120, width: 56, height: 56, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#000", background: "#fff", border: "1px solid #fff", borderRadius: "50%", padding: 0, textDecoration: "none", boxShadow: "0 12px 34px rgba(255,255,255,0.12)" },
 };
