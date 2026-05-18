@@ -286,7 +286,7 @@ export default function TSoftware() {
       <section style={styles.introPoster}>
         <div style={styles.introFrame} className="intro-frame">
           <div style={styles.introTopTitle} className="intro-title">
-            Construimos el <span style={styles.introTopTitleAccent}>futuro digital</span> de tu negocio.
+            Construimos el <span style={styles.accent}>futuro digital</span> de tu negocio.
           </div>
         </div>
       </section>
@@ -1126,12 +1126,12 @@ const css = `
   }
 
   .light-mode .mobile-menu {
-    background: #000 !important;
-    border-top: 0.5px solid #1a1a1a !important;
+    background: #fff !important;
+    border-top: 0.5px solid #e5e5e5 !important;
   }
 
   .light-mode .mobile-menu a {
-    color: #aaa !important;
+    color: #222 !important;
   }
 
   .light-mode .intro-title {
@@ -1370,7 +1370,7 @@ const styles = {
   aboutCta: { fontSize: 12, fontWeight: 500, color: "#000", background: "#fff", padding: "10px 18px", borderRadius: 4, textDecoration: "none", letterSpacing: "0.06em", display: "inline-block", textTransform: "uppercase", width: "fit-content", alignSelf: "flex-start", marginTop: 6 },
   sectionLabel: { fontSize: 10, color: "#777", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace", marginBottom: 12 },
   sectionTitle: { fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase" },
-  accent: { color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.4)" },
+  accent: { color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.5)" },
   aboutText: { fontSize: 15, color: "#8a8a8a", lineHeight: 1.85, fontWeight: 300 },
   aboutCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 36, minHeight: 430 },
   aboutCardTop: { display: "flex", alignItems: "center", gap: 18, marginBottom: 24 },
