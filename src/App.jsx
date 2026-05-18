@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import tsoftwareLogo from "./assets/tsoftware-logo.jpeg";
-import heroCarousel1 from "./assets/hero-carousel-1.jpeg";
 import heroCarousel2 from "./assets/hero-carousel-2.jpg";
 import heroCarousel3 from "./assets/hero-carousel-3.jpeg";
 import heroCarouselMobile from "./assets/hero-carousel-mobile.jpeg";
-import heroCarouselLightDesktop from "./assets/hero-carousel-light-desktop.jpeg";
-import heroCarouselLightMobile from "./assets/hero-carousel-light-mobile.jpeg";
+import heroCarouselOfficeDesktop from "./assets/hero-carousel-office-desktop.jpeg";
+import heroAgencyOffice from "./assets/hero-agency-office.jpeg";
+import heroDeviceShowcaseDesktop from "./assets/hero-device-showcase-desktop.jpeg";
+import heroMonitorDesktop from "./assets/hero-monitor-desktop.jpeg";
+import heroDeviceMobile from "./assets/hero-device-mobile.jpeg";
 import logoLight from "./assets/logo-light.jpeg";
 
 const Logo = ({
@@ -95,10 +97,8 @@ const PROCESS = [
   { num: "04", title: "Entrega y soporte", desc: "Lanzamos el producto y te acompañamos 30 días post-entrega." },
 ];
 
-const HERO_SLIDES = [heroCarousel1, heroCarousel2, heroCarousel3];
-const HERO_SLIDES_MOBILE = [heroCarouselMobile, heroCarousel3];
-const HERO_SLIDES_LIGHT = [heroCarousel1, heroCarousel2, heroCarouselLightDesktop];
-const HERO_SLIDES_LIGHT_MOBILE = [heroCarouselMobile, heroCarouselLightMobile];
+const HERO_SLIDES = [heroDeviceShowcaseDesktop, heroCarousel2, heroCarousel3, heroCarouselOfficeDesktop];
+const HERO_SLIDES_MOBILE = [heroDeviceMobile, heroMonitorDesktop, heroAgencyOffice, heroCarouselMobile, heroCarousel3];
 
 export default function TSoftware() {
   const [scrollY, setScrollY] = useState(0);
@@ -108,14 +108,14 @@ export default function TSoftware() {
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(() => (typeof window !== "undefined" ? window.innerWidth <= 768 : false));
   const heroRef = useRef(null);
-  const currentHeroSlides =
-    theme === "light"
-      ? isMobile
-        ? HERO_SLIDES_LIGHT_MOBILE
-        : HERO_SLIDES_LIGHT
-      : isMobile
-        ? HERO_SLIDES_MOBILE
-        : HERO_SLIDES;
+  const currentHeroSlides = isMobile ? HERO_SLIDES_MOBILE : HERO_SLIDES;
+  const getHeroImagePosition = (image) => {
+    if (image !== heroAgencyOffice) {
+      return "center";
+    }
+
+    return isMobile ? "center 54%" : "center 55%";
+  };
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY);
@@ -148,21 +148,13 @@ export default function TSoftware() {
   }, [currentHeroSlides.length]);
 
   useEffect(() => {
-    document.body.style.background = theme === "light" ? "#d6d5d1" : "#000";
+    document.body.style.background = theme === "light" ? "#fff" : "#000";
     document.body.style.color = theme === "light" ? "#111" : "#fff";
   }, [theme]);
 
   const navBg = scrollY > 60;
-  const navBackground = navBg
-    ? theme === "light"
-      ? "rgba(214,213,209,0.92)"
-      : "rgba(0,0,0,0.92)"
-    : "transparent";
-  const navBorder = navBg
-    ? theme === "light"
-      ? "0.5px solid #e6e6e6"
-      : "0.5px solid #1a1a1a"
-    : "none";
+  const navBackground = navBg ? (theme === "light" ? "rgba(255,255,255,0.92)" : "rgba(0,0,0,0.92)") : "transparent";
+  const navBorder = navBg ? (theme === "light" ? "0.5px solid #e5e5e5" : "0.5px solid #1a1a1a") : "none";
 
   return (
     <div style={styles.root} className={theme === "light" ? "light-mode" : ""}>
@@ -171,7 +163,10 @@ export default function TSoftware() {
       <div style={styles.pageContent}>
 
       {/* NAV */}
-      <nav style={{ ...styles.nav, background: navBackground, backdropFilter: navBg ? "blur(20px)" : "none", borderBottom: navBorder }}>
+      <nav
+        style={{ ...styles.nav, background: navBackground, backdropFilter: navBg ? "blur(20px)" : "none", borderBottom: navBorder }}
+        className={navBg ? "nav-scrolled" : ""}
+      >
         <div style={styles.navInner} className="nav-inner">
           <div style={styles.navLogo}>
             <Logo size={36} src={theme === "light" ? logoLight : tsoftwareLogo} />
@@ -229,6 +224,7 @@ export default function TSoftware() {
               style={{
                 ...styles.heroBgSlide,
                 backgroundImage: `url(${image})`,
+                backgroundPosition: getHeroImagePosition(image),
                 opacity: activeHeroSlide === index ? 1 : 0,
               }}
             />
@@ -315,12 +311,11 @@ export default function TSoftware() {
                 <span style={styles.accent}>Una visión.</span>
               </h2>
               <p style={styles.aboutText}>
-                T-Software es una agencia formada por una familia apasionada por la tecnología.Tenemos la convicción de que cualquier negocio — sin importar su tamaño — merece acceso a soluciones digitales de primer nivel.
+                T-Software es una agencia formada por una familia apasionada por la tecnología.Tenemos la convicción de que cualquier negocio sin importar su tamaño merece acceso a soluciones digitales de primer nivel.
               </p>
               <p style={styles.aboutText}>
                 No somos una fábrica de código. Somos un equipo que entiende tu negocio primero y construye la solución después. Esa es la diferencia.
               </p>
-              <a href="#contacto" style={styles.aboutCta} className="cta-btn about-cta">Conocé al equipo →</a>
             </div>
             <div style={styles.aboutRight}>
               <div style={styles.aboutCard} className="about-card">
@@ -334,7 +329,7 @@ export default function TSoftware() {
                 <div style={styles.aboutDivider} />
                 <div style={styles.aboutPoints}>
                   {["Desarrollo a medida 100%", "Comunicación directa con el equipo", "Sin intermediarios", "Precios transparentes", "Soporte post-entrega incluido"].map((p) => (
-                    <div key={p} style={styles.aboutPoint}>
+                    <div key={p} style={styles.aboutPoint} className="about-point">
                       <span style={styles.aboutPointDot} className="about-point-dot">◆</span>
                       <span>{p}</span>
                     </div>
@@ -394,32 +389,34 @@ export default function TSoftware() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section style={styles.testimonials} id="proyectos" className="testimonials-section">
-        <div style={styles.container}>
-          <div style={styles.sectionHeader}>
-            <div style={styles.sectionLabel}>VOCES DE CLIENTES</div>
-            <h2 style={styles.sectionTitle} className="section-title">Lo que dicen<br />de nosotros.</h2>
-          </div>
-          <div style={styles.testimonialsGrid} className="testimonials-grid">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} style={styles.testimonialCard} className="testimonial-card">
-                <div style={styles.testimonialQuote}>"</div>
-                <p style={styles.testimonialText}>{t.text}</p>
-                <div style={styles.testimonialAuthor}>
-                  <div style={styles.testimonialAvatar}>
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <div style={styles.testimonialName} className="testimonial-name">{t.name}</div>
-                    <div style={styles.testimonialRole}>{t.role}</div>
+      {/* TESTIMONIALS: guardado temporalmente para reactivar más adelante. */}
+      {false && (
+        <section style={styles.testimonials} id="proyectos" className="testimonials-section">
+          <div style={styles.container}>
+            <div style={styles.sectionHeader}>
+              <div style={styles.sectionLabel}>VOCES DE CLIENTES</div>
+              <h2 style={styles.sectionTitle} className="section-title">Lo que dicen<br />de nosotros.</h2>
+            </div>
+            <div style={styles.testimonialsGrid} className="testimonials-grid">
+              {TESTIMONIALS.map((t) => (
+                <div key={t.name} style={styles.testimonialCard} className="testimonial-card">
+                  <div style={styles.testimonialQuote}>"</div>
+                  <p style={styles.testimonialText}>{t.text}</p>
+                  <div style={styles.testimonialAuthor}>
+                    <div style={styles.testimonialAvatar}>
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <div style={styles.testimonialName} className="testimonial-name">{t.name}</div>
+                      <div style={styles.testimonialRole} className="testimonial-role">{t.role}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA BANNER */}
       <section style={styles.ctaBanner} id="contacto" className="cta-section">
@@ -446,14 +443,14 @@ export default function TSoftware() {
             <Logo size={36} src={theme === "light" ? logoLight : tsoftwareLogo} />
             <div>
               <div style={styles.footerBrandName} className="footer-brand-name">T-SOFTWARE</div>
-              <div style={styles.footerBrandSub}>AGENCY</div>
+              <div style={styles.footerBrandSub} className="footer-brand-sub">AGENCY</div>
             </div>
           </div>
           <div style={styles.footerLinks} className="footer-links">
             <div style={styles.footerCol}>
               <div style={styles.footerColTitle} className="footer-col-title">Contacto</div>
               <a
-                href="https://instagram.com/t_software.agency"
+                href="https://instagram.com/t.software.agency"
                 target="_blank"
                 rel="noreferrer"
                 style={styles.footerIconLink}
@@ -465,7 +462,7 @@ export default function TSoftware() {
                   <circle cx="12" cy="12" r="4.35" stroke="currentColor" strokeWidth="1.7" />
                   <circle cx="17.55" cy="6.55" r="1.25" fill="currentColor" />
                 </svg>
-                <span>@t_software.agency</span>
+                <span>@t.software.agency</span>
               </a>
               <a
                 href="https://wa.me/5493886576724"
@@ -497,20 +494,20 @@ export default function TSoftware() {
             </div>
             <div style={styles.footerCol}>
               <div style={styles.footerColTitle} className="footer-col-title">Servicios</div>
-              <span style={styles.footerLink}>Desarrollo Web</span>
-              <span style={styles.footerLink}>Apps Móviles</span>
-              <span style={styles.footerLink}>Sistemas de Gestión</span>
-              <span style={styles.footerLink}>Automatización con IA</span>
+              <span style={styles.footerLink} className="footer-link">Desarrollo Web</span>
+              <span style={styles.footerLink} className="footer-link">Apps Móviles</span>
+              <span style={styles.footerLink} className="footer-link">Sistemas de Gestión</span>
+              <span style={styles.footerLink} className="footer-link">Automatización con IA</span>
             </div>
             <div style={styles.footerCol}>
               <div style={styles.footerColTitle} className="footer-col-title">Atención</div>
-              <span style={styles.footerLink}>Respuesta en menos de 24hs</span>
-              <span style={styles.footerLink}>Consulta inicial sin costo</span>
+              <span style={styles.footerLink} className="footer-link">Respuesta en menos de 24hs</span>
+              <span style={styles.footerLink} className="footer-link">Consulta inicial sin costo</span>
             </div>
           </div>
         </div>
         <div style={styles.footerBottom} className="footer-bottom">
-          <span style={styles.footerCopy}>© 2026 T-Software Agency. Todos los derechos reservados.</span>
+          <span style={styles.footerCopy} className="footer-copy">© 2026 T-Software Agency. Todos los derechos reservados.</span>
         </div>
       </footer>
       <a
@@ -574,7 +571,7 @@ const css = `
   .ghost-btn:hover { background: rgba(255,255,255,0.08) !important; transform: translateY(-2px); }
 
   .service-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important; }
-  .service-card:hover { transform: translateY(-8px) !important; border: none !important; background: rgba(255,255,255,0.06) !important; }
+  .service-card:hover { transform: translateY(-8px) !important; border: none !important; background: #080808 !important; }
 
   .service-arrow { transition: transform 0.2s !important; }
   .service-card:hover .service-arrow { transform: translate(4px,-4px) !important; }
@@ -916,7 +913,7 @@ const css = `
   }
 
   .light-mode {
-    background: #d6d5d1 !important;
+    background: #fff !important;
     color: #111 !important;
   }
 
@@ -924,8 +921,6 @@ const css = `
     background-image: linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px) !important;
   }
 
-  .light-mode .nav-link,
-  .light-mode .nav-brand,
   .light-mode .section-title,
   .light-mode .about-title,
   .light-mode .cta-title,
@@ -937,12 +932,53 @@ const css = `
     color: #111 !important;
   }
 
+  .light-mode section:not(.hero-section) p,
+  .light-mode .about-point,
+  .light-mode .about-card-sub,
+  .light-mode .service-desc,
+  .light-mode .process-step p,
+  .light-mode .testimonial-card p,
+  .light-mode .testimonial-role,
+  .light-mode .cta-sub,
+  .light-mode .footer-link,
+  .light-mode .footer-brand-sub,
+  .light-mode .footer-copy,
+  .light-mode .logo-tag {
+    color: #222 !important;
+  }
+
+  .light-mode .nav-brand {
+    color: #fff !important;
+  }
+
+  .light-mode .nav-link {
+    color: #777 !important;
+  }
+
   .light-mode .nav-link:hover {
+    color: #fff !important;
+  }
+
+  .light-mode .nav-scrolled .nav-brand,
+  .light-mode .nav-scrolled .nav-link {
+    color: #111 !important;
+  }
+
+  .light-mode .nav-scrolled .nav-link:hover {
     color: #000 !important;
   }
 
+  .light-mode .nav-scrolled .burger-btn span {
+    background: #111 !important;
+  }
+
+  .light-mode .nav-scrolled .nav-cta {
+    background: #111 !important;
+    color: #fff !important;
+  }
+
   .light-mode .burger-btn span {
-    background: #000 !important;
+    background: #fff !important;
   }
 
   .light-mode .theme-toggle {
@@ -951,10 +987,14 @@ const css = `
     background: #111 !important;
   }
 
-  .light-mode .nav-cta,
   .light-mode .cta-btn {
     background: #111 !important;
     color: #fff !important;
+  }
+
+  .light-mode .nav-cta {
+    background: #fff !important;
+    color: #000 !important;
   }
 
   .light-mode .ghost-btn {
@@ -963,62 +1003,62 @@ const css = `
   }
 
   .light-mode .hero-pill {
-    color: #111 !important;
-    border-color: #bcbcbc !important;
+    color: #fff !important;
+    border-color: #2a2a2a !important;
   }
 
   .light-mode .hero-pill span {
-    background: #111 !important;
+    background: #fff !important;
   }
 
   .light-mode .hero-title,
   .light-mode .hero-sub,
   .light-mode .hero-stat-val {
-    color: #111 !important;
+    color: #fff !important;
   }
 
   .light-mode .hero-stat-val {
-    color: #000 !important;
+    color: #fff !important;
   }
 
   .light-mode .hero-title-accent-inline {
     color: transparent !important;
-    -webkit-text-stroke: 1.5px #000 !important;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.5) !important;
   }
 
   .light-mode .hero-overlay {
-    background: rgba(214,213,209,0.68) !important;
+    background: rgba(0,0,0,0.78) !important;
   }
 
   .light-mode .hero-grid {
-    background-image: linear-gradient(rgba(0,0,0,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.12) 1px,transparent 1px) !important;
+    background-image: linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px) !important;
   }
 
   .light-mode .hero-stat-label {
-    color: #555 !important;
+    color: #777 !important;
   }
 
   .light-mode .hero-section .cta-btn {
-    background: #111 !important;
-    color: #fff !important;
-    box-shadow: none !important;
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 8px 32px rgba(255,255,255,0.08) !important;
   }
 
   .light-mode .hero-section .ghost-btn {
-    color: #111 !important;
-    border-color: #bcbcbc !important;
+    color: #aaa !important;
+    border-color: #2a2a2a !important;
     background: transparent !important;
   }
 
   .light-mode .section-title span,
   .light-mode .about-title span {
     color: transparent !important;
-    -webkit-text-stroke: 1px rgba(0,0,0,0.45) !important;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.82) !important;
   }
 
   .light-mode .intro-title span {
     color: transparent !important;
-    -webkit-text-stroke: 1.5px rgba(0,0,0,0.5) !important;
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.86) !important;
   }
 
   .light-mode .logo-tag,
@@ -1026,15 +1066,15 @@ const css = `
   .light-mode .testimonial-card,
   .light-mode .about-card,
   .light-mode .footer-icon-link {
-    background: #d6d5d1 !important;
-    border-color: #ddd !important;
+    background: #fff !important;
+    border-color: #e5e5e5 !important;
     color: #111 !important;
   }
 
   .light-mode .testimonial-card:hover,
   .light-mode .about-card:hover {
-    background: rgba(255,255,255,0.14) !important;
-    border-color: #000 !important;
+    background: #ededed !important;
+    border-color: #d8d8d8 !important;
     color: #111 !important;
     backdrop-filter: none !important;
   }
@@ -1044,8 +1084,8 @@ const css = `
   }
 
   .light-mode .service-card:hover {
-    background: rgba(255,255,255,0.06) !important;
-    border: 0.5px solid rgba(0,0,0,0.3) !important;
+    background: #ededed !important;
+    border: 0.5px solid #d8d8d8 !important;
   }
 
   .light-mode .service-card:hover .service-title,
@@ -1075,13 +1115,23 @@ const css = `
     color: #111 !important;
   }
 
+  .light-mode .footer,
+  .light-mode .footer-brand-name,
+  .light-mode .footer-brand-sub,
+  .light-mode .footer-col-title,
+  .light-mode .footer-link,
+  .light-mode .footer-icon-link,
+  .light-mode .footer-copy {
+    color: #222 !important;
+  }
+
   .light-mode .mobile-menu {
-    background: #d6d5d1 !important;
-    border-top: 0.5px solid #e6e6e6 !important;
+    background: #000 !important;
+    border-top: 0.5px solid #1a1a1a !important;
   }
 
   .light-mode .mobile-menu a {
-    color: #333 !important;
+    color: #aaa !important;
   }
 
   .light-mode .intro-title {
@@ -1097,18 +1147,18 @@ const css = `
   }
 
   .light-mode .intro-orb-ring-tech-a {
-    border-color: #000 !important;
-    background: conic-gradient(from 18deg, #000 0deg 18deg, transparent 18deg 128deg, #000 128deg 152deg, transparent 152deg 262deg, #000 262deg 286deg, transparent 286deg 360deg) !important;
+    border-color: rgba(255,255,255,0.18) !important;
+    background: conic-gradient(from 18deg, rgba(255,255,255,0.68) 0deg 18deg, transparent 18deg 128deg, rgba(255,255,255,0.54) 128deg 152deg, transparent 152deg 262deg, rgba(255,255,255,0.62) 262deg 286deg, transparent 286deg 360deg) !important;
   }
 
   .light-mode .intro-orb-ring-tech-b {
-    border-color: #000 !important;
-    background: conic-gradient(from 212deg, transparent 0deg 56deg, #000 56deg 70deg, transparent 70deg 192deg, #000 192deg 206deg, transparent 206deg 330deg, #000 330deg 344deg, transparent 344deg 360deg) !important;
+    border-color: rgba(255,255,255,0.14) !important;
+    background: conic-gradient(from 212deg, transparent 0deg 56deg, rgba(255,255,255,0.58) 56deg 70deg, transparent 70deg 192deg, rgba(255,255,255,0.45) 192deg 206deg, transparent 206deg 330deg, rgba(255,255,255,0.52) 330deg 344deg, transparent 344deg 360deg) !important;
   }
 
   .light-mode .intro-orb-ring-core {
-    border-color: #000 !important;
-    box-shadow: inset 0 0 10px #000 !important;
+    border-color: rgba(255,255,255,0.2) !important;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.06) !important;
   }
 
   .light-mode .footer,
@@ -1322,7 +1372,7 @@ const styles = {
   sectionTitle: { fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase" },
   accent: { color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.4)" },
   aboutText: { fontSize: 15, color: "#8a8a8a", lineHeight: 1.85, fontWeight: 300 },
-  aboutCard: { background: "#0a0a0a", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 36, minHeight: 430 },
+  aboutCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 36, minHeight: 430 },
   aboutCardTop: { display: "flex", alignItems: "center", gap: 18, marginBottom: 24 },
   aboutCardTitle: { fontSize: 18, fontWeight: 700, letterSpacing: "0.06em" },
   aboutCardSub: { fontSize: 13, color: "#777", fontFamily: "'Space Mono', monospace", marginTop: 6 },
@@ -1336,8 +1386,8 @@ const styles = {
   sectionHeader: { textAlign: "center", marginBottom: 60 },
   sectionSub: { fontSize: 15, color: "#777", marginTop: 12, maxWidth: 480, margin: "12px auto 0" },
   servicesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 },
-  serviceCard: { background: "#0a0a0a", border: "none", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 14, cursor: "pointer" },
-  serviceCardActive: { border: "none", background: "#121212" },
+  serviceCard: { background: "#050505", border: "none", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 14, cursor: "pointer" },
+  serviceCardActive: { border: "none", background: "#080808" },
   serviceIcon: { fontSize: 24, color: "#fff" },
   serviceTitle: { fontSize: 17, fontWeight: 500 },
   serviceDesc: { fontSize: 13, color: "#8a8a8a", lineHeight: 1.7, flex: 1 },
@@ -1356,7 +1406,7 @@ const styles = {
   // TESTIMONIALS
   testimonials: { padding: "100px 24px", background: "transparent" },
   testimonialsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginTop: 60 },
-  testimonialCard: { background: "#0a0a0a", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 16 },
+  testimonialCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 16 },
   testimonialQuote: { fontSize: 48, color: "#222", lineHeight: 1, fontFamily: "Georgia, serif" },
   testimonialText: { fontSize: 14, color: "#aaa", lineHeight: 1.8, flex: 1 },
   testimonialAuthor: { display: "flex", alignItems: "center", gap: 12, paddingTop: 16, borderTop: "0.5px solid #1a1a1a" },
@@ -1381,8 +1431,8 @@ const styles = {
   footerLinks: { display: "grid", width: "100%", textAlign: "center", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 24 },
   footerCol: { display: "flex", flexDirection: "column", gap: 12, alignItems: "center" },
   footerColTitle: { fontSize: 11, color: "#fff", letterSpacing: "0.16em", textTransform: "uppercase", marginBottom: 4, fontWeight: 500 },
-  footerLink: { fontSize: 13, color: "#666", textDecoration: "none", display: "block" },
-  footerIconLink: { fontSize: 13, color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, border: "0.5px solid #222", borderRadius: 8, padding: "8px 12px", background: "#0a0a0a" },
+  footerLink: { fontSize: 13, color: "#666", textDecoration: "none", display: "block", fontFamily: "'Outfit', sans-serif" },
+  footerIconLink: { fontSize: 13, color: "#fff", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, border: "0.5px solid #222", borderRadius: 8, padding: "8px 12px", background: "#050505", fontFamily: "'Outfit', sans-serif" },
   footerBottom: { maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" },
   footerCopy: { fontSize: 11, color: "#555", fontFamily: "'Space Mono', monospace" },
   whatsappFloat: { position: "fixed", right: 24, bottom: 24, zIndex: 120, width: 56, height: 56, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#000", background: "#fff", border: "1px solid #fff", borderRadius: "50%", padding: 0, textDecoration: "none", boxShadow: "0 12px 34px rgba(255,255,255,0.12)" },
