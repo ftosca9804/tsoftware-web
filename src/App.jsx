@@ -2642,7 +2642,7 @@ const styles = {
   quoteEmpty: { textAlign: "center", padding: "36px 8px", color: "#555", fontSize: 14, lineHeight: 1.65 },
   quoteEmptyIcon: { display: "inline-flex", marginBottom: 12, color: "#333" },
   customQuoteLayout: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, alignItems: "start" },
-  customTitle: { fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 700, lineHeight: 1.15, textTransform: "uppercase", color: "#fff" },
+  customTitle: { fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase", color: "#fff", fontFamily: "'Outfit', sans-serif" },
   customFeatureList: { display: "grid", gap: 12, marginTop: 8 },
   customFeature: { color: "#aaa", fontSize: 14, lineHeight: 1.5 },
 
