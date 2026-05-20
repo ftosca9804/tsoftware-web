@@ -49,6 +49,14 @@ const ICON_PATHS = {
   video: "M17 10.5V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-4.5l4 4v-11l-4 4Z",
   booking: "M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2Zm0 16H5V8h14v11Zm-7-2 5-5-1.41-1.41L12 14.17l-1.59-1.58L9 14l3 3Z",
   languages: "M12.87 15.07 10.33 12.56l.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17A15.7 15.7 0 0 1 9 11.35 15.44 15.44 0 0 1 6.69 8h-2c.65 1.46 1.55 2.84 2.67 4.06l-5.09 5.02L3.69 18.5 9 13.18l3.31 3.31.56-1.42ZM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12Zm-2.62 7 1.62-4.33L19.12 17h-3.24Z",
+  search: "M9.5 3a6.5 6.5 0 0 1 5.15 10.46l4.45 4.44-1.2 1.2-4.44-4.45A6.5 6.5 0 1 1 9.5 3Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z",
+  speed: "M20.38 8.57a9 9 0 0 0-16.76 0A8.92 8.92 0 0 0 3 12c0 2.12.74 4.07 1.97 5.61.38.47 1.08.5 1.5.08l.02-.02c.35-.35.38-.9.07-1.29A6.96 6.96 0 0 1 5 12c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.63-.56 3.13-1.5 4.32-.31.39-.28.94.07 1.29.43.43 1.13.4 1.51-.08A8.94 8.94 0 0 0 21 12c0-1.2-.23-2.36-.62-3.43ZM11 6v6.59l-2.24 2.24 1.41 1.41 2.83-2.83V6h-2Z",
+  responsive: "M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2Zm0 17H7V4h10v14Zm-3 3h-4v-1h4v1Z",
+  support: "M12 1a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h3v-8H5v-1a7 7 0 0 1 14 0v1h-3v8h3v1h-7v2h7c1.1 0 2-.9 2-2V10a9 9 0 0 0-9-9Z",
+  automation: "M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.2 7.2 0 0 0-1.69-.98L14.5 2.42A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.5.42L9.12 5.07c-.61.24-1.18.56-1.69.98l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46c-.12.22-.07.49.12.64l2.11 1.65c-.05.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.13.22.39.31.6.22l2.49-1c.51.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.38-2.65c.61-.24 1.18-.57 1.69-.98l2.49 1c.23.08.48 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z",
+  verified: "M11.19 1.36 4.19 4.47C3.47 4.79 3 5.51 3 6.3V11c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6.3c0-.79-.47-1.51-1.19-1.83l-7-3.11a2 2 0 0 0-1.62 0Zm-1.9 14.93L6.7 13.7a1 1 0 0 1 1.41-1.41L10 14.17l5.88-5.88a1 1 0 0 1 1.41 1.41l-6.59 6.59a1 1 0 0 1-1.41 0Z",
+  launch: "M12 2.5c2.76 0 5 2.24 5 5 0 1.75-.91 3.3-2.28 4.18L16 19l-4-2-4 2 1.28-7.32A4.98 4.98 0 0 1 7 7.5c0-2.76 2.24-5 5-5Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z",
+  help: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 17a1.25 1.25 0 1 1 0-2.5A1.25 1.25 0 0 1 12 19Zm1.2-4.75h-2v-.6c0-1.1.6-1.72 1.45-2.3.78-.53 1.35-.96 1.35-1.85 0-.95-.75-1.55-1.82-1.55-1.04 0-1.78.55-2.18 1.48L8.2 8.7C8.85 7.1 10.27 6 12.25 6 14.58 6 16 7.36 16 9.35c0 1.58-.88 2.35-1.88 3.02-.67.45-.92.78-.92 1.35v.53Z",
 };
 
 const SvgIcon = ({ name, size = 18 }) => (
@@ -242,22 +250,22 @@ const QUOTE_MAINTENANCE = [
 
 const SERVICES = [
   {
-    icon: "◈",
+    icon: "landing",
     title: "Landing Pages",
     desc: "Páginas enfocadas en captar consultas, convertir visitas en clientes y acompañar campañas, anuncios o lanzamientos.",
   },
   {
-    icon: "◉",
+    icon: "web",
     title: "Páginas Web Profesionales",
     desc: "Sitios institucionales modernos, responsive, con formularios, contenido claro y base SEO para aparecer mejor en Google.",
   },
   {
-    icon: "⬡",
+    icon: "systems",
     title: "Sistemas y CRM a Medida",
     desc: "Software para gestionar clientes, turnos, reservas, stock, ventas, equipos y procesos internos desde un solo lugar.",
   },
   {
-    icon: "◎",
+    icon: "automation",
     title: "SEO, IA y Automatización",
     desc: "Optimizamos la presencia digital e integramos automatizaciones, chatbots e IA para que tu operación trabaje mejor.",
   },
@@ -266,6 +274,7 @@ const SERVICES = [
 const DIGITAL_SOLUTIONS = [
   {
     id: "landing-pages",
+    icon: "landing",
     tag: "Captación",
     title: "Landing pages que convierten",
     desc: "Una página directa, rápida y persuasiva para presentar tu oferta, recibir consultas y medir resultados desde el primer día.",
@@ -273,6 +282,7 @@ const DIGITAL_SOLUTIONS = [
   },
   {
     id: "webs-institucionales",
+    icon: "web",
     tag: "Presencia",
     title: "Webs institucionales",
     desc: "Una base digital sólida para mostrar quién sos, qué hacés y por qué confiar en tu negocio, con una experiencia clara en celular y escritorio.",
@@ -280,6 +290,7 @@ const DIGITAL_SOLUTIONS = [
   },
   {
     id: "sistemas-a-medida",
+    icon: "systems",
     tag: "Operación",
     title: "Sistemas personalizados",
     desc: "Herramientas internas para ordenar procesos, ahorrar tiempo y reemplazar planillas o tareas manuales por software hecho para tu forma de trabajar.",
@@ -289,18 +300,22 @@ const DIGITAL_SOLUTIONS = [
 
 const BENEFITS = [
   {
+    icon: "speed",
     title: "Velocidad optimizada",
     desc: "Construimos experiencias livianas, rápidas y preparadas para usuarios que navegan desde cualquier dispositivo.",
   },
   {
+    icon: "search",
     title: "SEO técnico incluido",
     desc: "Cuidamos estructura, etiquetas, performance y contenido base para que tu web tenga mejores señales para buscadores.",
   },
   {
+    icon: "responsive",
     title: "100% responsive",
     desc: "Diseños adaptados a celular, tablet y escritorio, porque la mayoría de tus clientes te encuentra desde el teléfono.",
   },
   {
+    icon: "support",
     title: "Soporte post-lanzamiento",
     desc: "Después de publicar, seguimos cerca para ajustes, mejoras y acompañamiento técnico sin vueltas.",
   },
@@ -308,18 +323,22 @@ const BENEFITS = [
 
 const FAQS = [
   {
+    icon: "help",
     question: "¿Qué puedo pedirles?",
     answer: "Una landing page, una web institucional, una tienda, un sistema interno, un CRM, automatizaciones o una integración con IA.",
   },
   {
+    icon: "launch",
     question: "¿Trabajan con negocios que recién empiezan?",
     answer: "Sí. Podemos armar una primera versión simple y escalable, pensada para validar rápido sin gastar de más.",
   },
   {
+    icon: "search",
     question: "¿La web queda lista para Google?",
     answer: "Incluimos una base técnica SEO: estructura clara, performance, textos ordenados, responsive y metadatos esenciales.",
   },
   {
+    icon: "support",
     question: "¿Puedo pedir cambios después de lanzar?",
     answer: "Sí. El soporte post-entrega está incluido y también podemos coordinar mejoras continuas según lo que necesites.",
   },
@@ -730,7 +749,9 @@ Detalle: ${customForm.details || "No informado"}`;
                 className="service-card reveal-item"
                 onMouseEnter={() => setActiveService(i)}
               >
-                <div style={styles.serviceIcon} className="service-icon">{s.icon}</div>
+                <div style={styles.serviceIcon} className="service-icon">
+                  <SvgIcon name={s.icon} size={28} />
+                </div>
                 <h3 style={styles.serviceTitle} className="service-title">{s.title}</h3>
                 <p style={styles.serviceDesc}>{s.desc}</p>
                 <div style={styles.serviceArrow} className="service-arrow">→</div>
@@ -757,7 +778,12 @@ Detalle: ${customForm.details || "No informado"}`;
           <div style={styles.solutionsGrid} className="solutions-grid">
             {DIGITAL_SOLUTIONS.map((item) => (
               <article key={item.title} id={item.id} style={styles.solutionCard} className="solution-card reveal-item">
-                <span style={styles.solutionTag} className="solution-tag">{item.tag}</span>
+                <div style={styles.solutionCardTop}>
+                  <span style={styles.solutionIcon} className="solution-icon">
+                    <SvgIcon name={item.icon} size={26} />
+                  </span>
+                  <span style={styles.solutionTag} className="solution-tag">{item.tag}</span>
+                </div>
                 <h3 style={styles.solutionTitle} className="solution-title">{item.title}</h3>
                 <p style={styles.solutionDesc}>{item.desc}</p>
                 <div style={styles.solutionPoints}>
@@ -782,7 +808,12 @@ Detalle: ${customForm.details || "No informado"}`;
           <div style={styles.benefitsGrid} className="benefits-grid">
             {BENEFITS.map((benefit, index) => (
               <div key={benefit.title} style={styles.benefitItem} className="benefit-item reveal-item">
-                <div style={styles.benefitIndex}>{String(index + 1).padStart(2, "0")}</div>
+                <div style={styles.benefitTop}>
+                  <span style={styles.benefitIcon} className="benefit-icon">
+                    <SvgIcon name={benefit.icon} size={26} />
+                  </span>
+                  <span style={styles.benefitIndex}>{String(index + 1).padStart(2, "0")}</span>
+                </div>
                 <h3 style={styles.benefitTitle} className="benefit-title">{benefit.title}</h3>
                 <p style={styles.benefitDesc}>{benefit.desc}</p>
               </div>
@@ -828,7 +859,12 @@ Detalle: ${customForm.details || "No informado"}`;
           <div style={styles.faqGrid} className="faq-grid">
             {FAQS.map((faq) => (
               <div key={faq.question} style={styles.faqItem} className="faq-item reveal-item">
-                <h3 style={styles.faqQuestion} className="faq-question">{faq.question}</h3>
+                <div style={styles.faqTop}>
+                  <span style={styles.faqIcon} className="faq-icon">
+                    <SvgIcon name={faq.icon} size={22} />
+                  </span>
+                  <h3 style={styles.faqQuestion} className="faq-question">{faq.question}</h3>
+                </div>
                 <p style={styles.faqAnswer}>{faq.answer}</p>
               </div>
             ))}
@@ -1394,8 +1430,56 @@ const css = `
   .ghost-btn { transition: all 0.2s !important; }
   .ghost-btn:hover { background: rgba(255,255,255,0.08) !important; transform: translateY(-2px); }
 
-  .service-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important; }
-  .service-card:hover { transform: translateY(-8px) !important; border: none !important; background: #080808 !important; }
+  .about-card,
+  .service-card,
+  .solution-card,
+  .benefit-item,
+  .faq-item,
+  .quote-step-card,
+  .quote-summary,
+  .quote-info-box,
+  .quote-total-box,
+  .testimonial-card,
+  .quote-addon,
+  .quote-select-button,
+  .quote-select-menu,
+  .footer-icon-link {
+    background: rgba(5,5,5,0.82) !important;
+    border: 0.5px solid rgba(255,255,255,0.1) !important;
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 18px 44px rgba(0,0,0,0.26) !important;
+  }
+
+  .service-card:hover,
+  .solution-card:hover,
+  .benefit-item:hover,
+  .faq-item:hover,
+  .about-card:hover,
+  .testimonial-card:hover,
+  .quote-addon:hover,
+  .quote-select-button:hover,
+  .quote-select-button-open,
+  .quote-select-option:hover {
+    background: rgba(8,8,8,0.92) !important;
+    border-color: rgba(255,255,255,0.16) !important;
+  }
+
+  .service-card {
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    outline: none !important;
+  }
+  .service-card:hover { transform: translateY(-8px) !important; }
+  .service-card:active,
+  .service-card:focus,
+  .service-card:focus-visible {
+    background: rgba(8,8,8,0.92) !important;
+    border-color: rgba(255,255,255,0.16) !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
 
   .service-arrow { transition: transform 0.2s !important; }
   .service-card:hover .service-arrow { transform: translate(4px,-4px) !important; }
@@ -1405,7 +1489,7 @@ const css = `
   .faq-item { transition: all 0.25s ease !important; }
   .solution-card:hover,
   .benefit-item:hover,
-  .faq-item:hover { transform: translateY(-4px); background: #080808 !important; }
+  .faq-item:hover { transform: translateY(-4px); }
 
   .quote-tab,
   .quote-addon,
@@ -1419,17 +1503,21 @@ const css = `
   .quote-addon-icon svg,
   .quote-select-button-icon svg,
   .quote-select-option-icon svg,
+  .service-icon svg,
+  .solution-icon svg,
+  .benefit-icon svg,
+  .faq-icon svg,
   .nav-icon-symbol svg,
   .nav-dropdown-item-icon svg,
   .mobile-service-link svg { display: block; }
   .quote-select-button,
   .quote-select-option { transition: background 0.2s, border-color 0.2s, color 0.2s !important; }
   .quote-select-button:hover,
-  .quote-select-button-open { border-color: rgba(255,255,255,0.34) !important; background: #0a0a0a !important; }
+  .quote-select-button-open { border-color: rgba(255,255,255,0.22) !important; }
   .quote-select-button-open .quote-select-caret { transform: rotate(180deg); }
   .quote-select-menu { animation: dropdownIn 0.18s ease both; }
-  .quote-select-option:hover { background: #0a0a0a !important; border-color: #2a2a2a !important; }
-  .quote-select-option-active { background: #111 !important; border-color: #fff !important; color: #fff !important; }
+  .quote-select-option:hover { border-color: rgba(255,255,255,0.18) !important; }
+  .quote-select-option-active { background: rgba(255,255,255,0.12) !important; border-color: #fff !important; color: #fff !important; }
   .quote-select-option-active .quote-select-option-icon { color: #fff !important; border-color: #fff !important; }
   .quote-addon strong,
   .quote-total-box strong { color: inherit; font-size: 0.95rem; }
@@ -2037,9 +2125,12 @@ const css = `
   .light-mode .testimonial-card,
   .light-mode .about-card,
   .light-mode .footer-icon-link {
-    background: #fff !important;
-    border-color: #e5e5e5 !important;
+    background: rgba(255,255,255,0.92) !important;
+    border-color: rgba(0,0,0,0.1) !important;
     color: #111 !important;
+    backdrop-filter: blur(18px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 18px 44px rgba(0,0,0,0.08) !important;
   }
 
   .light-mode .testimonial-card:hover,
@@ -2052,19 +2143,20 @@ const css = `
   .light-mode .quote-select-button-open,
   .light-mode .quote-select-option:hover,
   .light-mode .about-card:hover {
-    background: #ededed !important;
-    border-color: #d8d8d8 !important;
+    background: rgba(245,245,245,0.94) !important;
+    border-color: rgba(0,0,0,0.16) !important;
     color: #111 !important;
-    backdrop-filter: none !important;
+    backdrop-filter: blur(18px) saturate(1.12) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
   }
 
   .light-mode .service-card {
-    border: 0.5px solid rgba(0,0,0,0.18) !important;
+    border: 0.5px solid rgba(0,0,0,0.1) !important;
   }
 
   .light-mode .service-card:hover {
-    background: #ededed !important;
-    border: 0.5px solid #d8d8d8 !important;
+    background: rgba(245,245,245,0.94) !important;
+    border: 0.5px solid rgba(0,0,0,0.16) !important;
   }
 
   .light-mode .service-card:hover .service-title,
@@ -2105,7 +2197,11 @@ const css = `
   }
 
   .light-mode .quote-select-button-icon,
-  .light-mode .quote-select-option-icon {
+  .light-mode .quote-select-option-icon,
+  .light-mode .service-icon,
+  .light-mode .solution-icon,
+  .light-mode .benefit-icon,
+  .light-mode .faq-icon {
     background: #f5f5f5 !important;
     border-color: #e5e5e5 !important;
     color: #111 !important;
@@ -2441,7 +2537,7 @@ const styles = {
   servicesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 },
   serviceCard: { background: "#050505", border: "none", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 14, cursor: "pointer" },
   serviceCardActive: { border: "none", background: "#080808" },
-  serviceIcon: { fontSize: 24, color: "#fff" },
+  serviceIcon: { width: 46, height: 46, borderRadius: 12, color: "#fff", background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center" },
   serviceTitle: { fontSize: 17, fontWeight: 500 },
   serviceDesc: { fontSize: 13, color: "#8a8a8a", lineHeight: 1.7, flex: 1 },
   serviceArrow: { fontSize: 18, color: "#666", marginTop: 8, display: "block" },
@@ -2452,6 +2548,8 @@ const styles = {
   splitHeaderText: { fontSize: 15, color: "#777", lineHeight: 1.8, fontWeight: 300 },
   solutionsGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 16 },
   solutionCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 16, minHeight: 330 },
+  solutionCardTop: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 },
+  solutionIcon: { width: 46, height: 46, borderRadius: 12, color: "#fff", background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
   solutionTag: { width: "fit-content", fontSize: 10, color: "#aaa", border: "0.5px solid #222", borderRadius: 4, padding: "5px 10px", letterSpacing: "0.14em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
   solutionTitle: { fontSize: 21, fontWeight: 500, lineHeight: 1.22, textTransform: "uppercase" },
   solutionDesc: { fontSize: 14, color: "#8a8a8a", lineHeight: 1.75, fontWeight: 300, flex: 1 },
@@ -2462,7 +2560,9 @@ const styles = {
   benefits: { padding: "100px 24px" },
   benefitsGrid: { display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 16 },
   benefitItem: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 26, minHeight: 240 },
-  benefitIndex: { fontSize: 13, color: "#444", fontFamily: "'Space Mono', monospace", marginBottom: 30 },
+  benefitTop: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 28 },
+  benefitIcon: { width: 46, height: 46, borderRadius: 12, color: "#fff", background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  benefitIndex: { fontSize: 13, color: "#444", fontFamily: "'Space Mono', monospace" },
   benefitTitle: { fontSize: 17, fontWeight: 500, marginBottom: 12, textTransform: "uppercase" },
   benefitDesc: { fontSize: 13, color: "#777", lineHeight: 1.75 },
 
@@ -2480,7 +2580,9 @@ const styles = {
   faq: { padding: "100px 24px", borderTop: "0.5px solid #111" },
   faqGrid: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 },
   faqItem: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28 },
-  faqQuestion: { fontSize: 17, fontWeight: 500, marginBottom: 10, textTransform: "uppercase" },
+  faqTop: { display: "flex", alignItems: "center", gap: 14, marginBottom: 10 },
+  faqIcon: { width: 40, height: 40, borderRadius: 12, color: "#fff", background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  faqQuestion: { fontSize: 17, fontWeight: 500, marginBottom: 0, textTransform: "uppercase" },
   faqAnswer: { fontSize: 14, color: "#777", lineHeight: 1.75 },
 
   // QUOTE
