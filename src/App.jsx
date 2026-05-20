@@ -36,31 +36,122 @@ const Logo = ({
   );
 };
 
+const ICON_PATHS = {
+  calculator: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2Zm-5.97 4.06L14.09 6l1.41 1.41L16.91 6l1.06 1.06-1.41 1.41 1.41 1.41-1.06 1.06-1.41-1.4-1.41 1.41-1.06-1.06 1.41-1.41ZM6.25 7.72h5v1.5h-5Zm5.25 8.28h-2v2H8v-2H6v-1.5h2v-2h1.5v2h2Zm6.5 1.25h-5v-1.5h5Zm0-2.5h-5v-1.5h5Z",
+  code: "M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z",
+  landing: "M21 5v6.5H9.33V5h11.67Zm-6.33 14v-6.5H9.33V19h5.34Zm1-6.5V19H21v-6.5h-5.33ZM8.33 19V5H3v14h5.33Z",
+  web: "M14 2H4c-1.11 0-2 .9-2 2v10h2V4h10V2Zm4 4H8c-1.11 0-2 .9-2 2v10h2V8h10V6Zm2 4h-8c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h8c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2Z",
+  systems: "M22 11V3h-7v3H9V3H2v8h7V8h2v8H9v-3H2v8h7v-3h6v3h7v-8h-7v3h-2V8h2v3h7Z",
+  grid: "M3 3v8h8V3H3Zm6 6H5V5h4v4Zm-6 4v8h8v-8H3Zm6 6H5v-4h4v4Zm4-16v8h8V3h-8Zm6 6h-4V5h4v4Zm-6 4v8h8v-8h-8Zm6 6h-4v-4h4v4Z",
+  whatsapp: "M12.04 2C6.57 2 2.12 6.42 2.12 11.85c0 1.87.53 3.63 1.45 5.12L2 22l5.18-1.52a9.96 9.96 0 0 0 4.86 1.25c5.47 0 9.92-4.42 9.92-9.88S17.51 2 12.04 2Zm5.79 14.06c-.24.67-1.39 1.29-1.94 1.34-.5.05-1.13.07-1.82-.11-.42-.11-.96-.31-1.65-.6-2.9-1.25-4.79-4.15-4.94-4.34-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.02-2.42.27-.29.59-.36.78-.36h.56c.18.01.42-.07.66.5.24.58.82 2.01.89 2.16.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.38-.43.5-.14.14-.29.29-.12.58.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.45.29.14.46.12.62-.07.19-.22.72-.84.91-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.37Z",
+  analytics: "M5 9.2h3V20H5V9.2Zm5.5-5.2h3v16h-3V4Zm5.5 8h3v8h-3v-8Z",
+  copy: "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1Zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2Zm-1 12H9v-2h9v2Zm0-4H9v-2h9v2Z",
+  video: "M17 10.5V6c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-4.5l4 4v-11l-4 4Z",
+  booking: "M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2Zm0 16H5V8h14v11Zm-7-2 5-5-1.41-1.41L12 14.17l-1.59-1.58L9 14l3 3Z",
+  languages: "M12.87 15.07 10.33 12.56l.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17A15.7 15.7 0 0 1 9 11.35 15.44 15.44 0 0 1 6.69 8h-2c.65 1.46 1.55 2.84 2.67 4.06l-5.09 5.02L3.69 18.5 9 13.18l3.31 3.31.56-1.42ZM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12Zm-2.62 7 1.62-4.33L19.12 17h-3.24Z",
+};
+
+const SvgIcon = ({ name, size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d={ICON_PATHS[name]} />
+  </svg>
+);
+
+const QuoteSelect = ({ value, placeholder, options, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const selected = options.find((option) => option.value === value);
+
+  return (
+    <div style={styles.quoteSelectWrap} className="quote-select-wrap">
+      <button
+        type="button"
+        style={{ ...styles.quoteSelectButton, ...(open ? styles.quoteSelectButtonOpen : {}) }}
+        className={`quote-select-button${open ? " quote-select-button-open" : ""}`}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+      >
+        <span style={styles.quoteSelectButtonMain}>
+          {selected?.icon && (
+            <span style={styles.quoteSelectButtonIcon} className="quote-select-button-icon">
+              <SvgIcon name={selected.icon} size={18} />
+            </span>
+          )}
+          <span style={styles.quoteSelectButtonCopy}>
+            <strong>{selected?.label || placeholder}</strong>
+            {selected?.sub && <small>{selected.sub}</small>}
+          </span>
+        </span>
+        <span style={styles.quoteSelectCaret} className="quote-select-caret">⌄</span>
+      </button>
+      {open && (
+        <div style={styles.quoteSelectMenu} className="quote-select-menu">
+          <button
+            type="button"
+            style={{ ...styles.quoteSelectOption, ...styles.quoteSelectPlaceholderOption }}
+            className="quote-select-option quote-select-option-placeholder"
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+            }}
+          >
+            <span style={styles.quoteSelectOptionCopy}>
+              <strong>{placeholder}</strong>
+            </span>
+          </button>
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              style={{ ...styles.quoteSelectOption, ...(option.value === value ? styles.quoteSelectOptionActive : {}) }}
+              className={`quote-select-option${option.value === value ? " quote-select-option-active" : ""}`}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.icon && (
+                <span style={styles.quoteSelectOptionIcon} className="quote-select-option-icon">
+                  <SvgIcon name={option.icon} size={18} />
+                </span>
+              )}
+              <span style={styles.quoteSelectOptionCopy}>
+                <strong>{option.label}</strong>
+                {option.sub && <small>{option.sub}</small>}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const NAV_LINKS = [
   { label: "Inicio", href: "#inicio" },
   { label: "Nosotros", href: "#nosotros" },
   { label: "Servicios", href: "#servicios" },
-  { label: "Cotizador", href: "#cotizador", icon: "▦" },
+  { label: "Cotizador", href: "#cotizador", icon: "calculator" },
   { label: "Contacto", href: "#contacto" },
 ];
 
 const DESKTOP_SERVICE_LINKS = [
-  { label: "Landing Pages", href: "#landing-pages", sub: "Campañas y captación de leads" },
-  { label: "Webs Institucionales", href: "#webs-institucionales", sub: "Presencia profesional y confianza" },
-  { label: "Sistemas a Medida", href: "#sistemas-a-medida", sub: "Automatización interna" },
-  { label: "Todos los servicios", href: "#servicios", sub: "Ver la oferta completa" },
+  { label: "Landing Pages", href: "#landing-pages", icon: "landing", sub: "Campañas y captación de leads" },
+  { label: "Webs Institucionales", href: "#webs-institucionales", icon: "web", sub: "Presencia profesional y confianza" },
+  { label: "Sistemas a Medida", href: "#sistemas-a-medida", icon: "systems", sub: "Automatización y gestión interna" },
+  { label: "Todos los servicios", href: "#servicios", icon: "grid", sub: "Ver la oferta completa", accent: true },
 ];
 
 const MOBILE_SERVICE_LINKS = [
-  { label: "Landing Pages", href: "#landing-pages" },
-  { label: "Webs Institucionales", href: "#webs-institucionales" },
-  { label: "Sistemas a Medida", href: "#sistemas-a-medida" },
-  { label: "Todos los servicios", href: "#servicios" },
-  { label: "Cotizador", href: "#cotizador" },
+  { label: "Landing Pages", href: "#landing-pages", icon: "landing", sub: "Campañas y leads" },
+  { label: "Webs Institucionales", href: "#webs-institucionales", icon: "web", sub: "Presencia profesional" },
+  { label: "Sistemas a Medida", href: "#sistemas-a-medida", icon: "systems", sub: "Automatización interna" },
+  { label: "Todos los servicios", href: "#servicios", icon: "grid", sub: "Oferta completa", accent: true },
+  { label: "Cotizador", href: "#cotizador", icon: "calculator", sub: "Calculá tu inversión", accent: true },
 ];
 
 const QUOTE_PROJECTS = {
   landing: {
+    icon: "landing",
     label: "Landing Page",
     tagline: "Convierte visitantes en clientes",
     description: "Una página estratégica enfocada en captar consultas, presentar una oferta clara y convertir tráfico en oportunidades reales.",
@@ -93,6 +184,7 @@ const QUOTE_PROJECTS = {
     ],
   },
   web: {
+    icon: "web",
     label: "Web Completa / Institucional",
     tagline: "Tu empresa en internet, con todo lo que necesita",
     description: "Un sitio web completo para presentar tu empresa, servicios, historia y canales de contacto con una estructura profesional.",
@@ -128,16 +220,16 @@ const QUOTE_PROJECTS = {
 
 const QUOTE_ADDONS = {
   landing: [
-    { id: "whatsapp", name: "Widget de WhatsApp", description: "Botón flotante para contacto directo.", price: 35000 },
-    { id: "analytics", name: "Analytics + Pixel", description: "Medición de visitas y campañas.", price: 55000 },
-    { id: "copy", name: "Copywriting comercial", description: "Textos orientados a conversión.", price: 70000 },
-    { id: "video", name: "Sección con video", description: "Integración de video provisto por el cliente.", price: 45000 },
+    { id: "whatsapp", icon: "whatsapp", name: "Widget de WhatsApp", description: "Botón flotante para contacto directo.", price: 35000 },
+    { id: "analytics", icon: "analytics", name: "Analytics + Pixel", description: "Medición de visitas y campañas.", price: 55000 },
+    { id: "copy", icon: "copy", name: "Copywriting comercial", description: "Textos orientados a conversión.", price: 70000 },
+    { id: "video", icon: "video", name: "Sección con video", description: "Integración de video provisto por el cliente.", price: 45000 },
   ],
   web: [
-    { id: "blog", name: "Blog / Novedades", description: "Sección administrable para contenidos.", price: 85000 },
-    { id: "catalog", name: "Catálogo de servicios", description: "Listado organizado de servicios o productos.", price: 95000 },
-    { id: "booking", name: "Turnos o reservas", description: "Formulario avanzado para coordinar citas.", price: 120000 },
-    { id: "languages", name: "Versión bilingüe", description: "Estructura para dos idiomas.", price: 140000 },
+    { id: "blog", icon: "copy", name: "Blog / Novedades", description: "Sección administrable para contenidos.", price: 85000 },
+    { id: "catalog", icon: "grid", name: "Catálogo de servicios", description: "Listado organizado de servicios o productos.", price: 95000 },
+    { id: "booking", icon: "booking", name: "Turnos o reservas", description: "Formulario avanzado para coordinar citas.", price: 120000 },
+    { id: "languages", icon: "languages", name: "Versión bilingüe", description: "Estructura para dos idiomas.", price: 140000 },
   ],
 };
 
@@ -426,11 +518,16 @@ Detalle: ${customForm.details || "No informado"}`;
                           key={item.label}
                           href={item.href}
                           style={styles.navDropdownItem}
-                          className="nav-dropdown-item"
+                          className={`nav-dropdown-item${item.accent ? " nav-dropdown-item-accent" : ""}`}
                           onClick={() => setServicesMenuOpen(false)}
                         >
-                          <span style={styles.navDropdownItemTitle}>{item.label}</span>
-                          <span style={styles.navDropdownItemSub}>{item.sub}</span>
+                          <span style={{ ...styles.navDropdownItemIcon, ...(item.accent ? styles.navDropdownItemIconAccent : {}) }} className="nav-dropdown-item-icon">
+                            <SvgIcon name={item.icon} size={18} />
+                          </span>
+                          <span style={styles.navDropdownItemCopy}>
+                            <span style={styles.navDropdownItemTitle} className="nav-dropdown-item-title">{item.label}</span>
+                            <span style={styles.navDropdownItemSub} className="nav-dropdown-item-sub">{item.sub}</span>
+                          </span>
                         </a>
                       ))}
                     </div>
@@ -438,7 +535,7 @@ Detalle: ${customForm.details || "No informado"}`;
                 </div>
               ) : (
                 <a key={l.label} href={l.href} style={l.icon ? styles.navIconLink : styles.navLink} className={l.icon ? "nav-link nav-icon-link" : "nav-link"} onClick={() => setServicesMenuOpen(false)}>
-                  {l.icon && <span style={styles.navIconSymbol} aria-hidden="true">{l.icon}</span>}
+                  {l.icon && <span style={styles.navIconSymbol} aria-hidden="true"><SvgIcon name={l.icon} size={16} /></span>}
                   <span>{l.label}</span>
                 </a>
               )
@@ -481,7 +578,15 @@ Detalle: ${customForm.details || "No informado"}`;
             <div style={styles.mobileMenuDivider} />
             <div style={styles.mobileMenuLabel}>Servicios</div>
             {MOBILE_SERVICE_LINKS.map((l) => (
-              <a key={l.label} href={l.href} style={styles.mobileLink} onClick={() => setMenuOpen(false)}>{l.label}</a>
+              <a key={l.label} href={l.href} style={styles.mobileServiceLink} className={l.accent ? "mobile-service-link mobile-service-link-accent" : "mobile-service-link"} onClick={() => setMenuOpen(false)}>
+                <span style={{ ...styles.mobileServiceIcon, ...(l.accent ? styles.mobileServiceIconAccent : {}) }}>
+                  <SvgIcon name={l.icon} size={17} />
+                </span>
+                <span style={styles.mobileServiceCopy}>
+                  <strong>{l.label}</strong>
+                  <small>{l.sub}</small>
+                </span>
+              </a>
             ))}
           </div>
         )}
@@ -735,7 +840,10 @@ Detalle: ${customForm.details || "No informado"}`;
       <section style={styles.quote} id="cotizador" className="quote-section reveal">
         <div style={styles.container}>
           <div style={styles.quoteHero} className="quote-hero">
-            <div style={styles.quoteBadge} className="quote-badge">Calculá tu inversión</div>
+            <div style={styles.quoteBadge} className="quote-badge">
+              <SvgIcon name="calculator" size={15} />
+              Calculá tu inversión
+            </div>
             <h2 style={styles.sectionTitle} className="section-title">
               Cotizá tu <span style={styles.accent}>Proyecto Digital</span>
             </h2>
@@ -745,8 +853,8 @@ Detalle: ${customForm.details || "No informado"}`;
           </div>
           <div style={styles.quoteTabs} className="quote-tabs">
             {[
-              { id: "quoter", label: "Cotizador Online" },
-              { id: "custom", label: "Desarrollo a Medida" },
+              { id: "quoter", label: "Cotizador Online", icon: "calculator" },
+              { id: "custom", label: "Desarrollo a Medida", icon: "code" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -755,6 +863,7 @@ Detalle: ${customForm.details || "No informado"}`;
                 className={`quote-tab${quoteMode === tab.id ? " quote-tab-active" : ""}`}
                 onClick={() => setQuoteMode(tab.id)}
               >
+                <SvgIcon name={tab.icon} size={17} />
                 {tab.label}
               </button>
             ))}
@@ -768,25 +877,34 @@ Detalle: ${customForm.details || "No informado"}`;
                     <span style={styles.quoteStepNumber}>1</span>
                     <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Qué tipo de proyecto necesitás?</h3>
                   </div>
-                  <select
+                  <QuoteSelect
                     value={quoteProject}
-                    onChange={(event) => {
-                      setQuoteProject(event.target.value);
+                    placeholder="Seleccioná el tipo de proyecto"
+                    options={Object.entries(QUOTE_PROJECTS).map(([value, project]) => ({
+                      value,
+                      label: project.label,
+                      sub: project.tagline,
+                      icon: project.icon,
+                    }))}
+                    onChange={(nextProject) => {
+                      setQuoteProject(nextProject);
                       setQuotePlan("");
                       setQuoteAddons([]);
                       setQuoteMaintenance("none");
                     }}
-                    style={styles.quoteSelect}
-                    className="quote-select"
-                  >
-                    <option value="">Seleccioná el tipo de proyecto</option>
-                    <option value="landing">Landing Page - Convierte visitantes en clientes</option>
-                    <option value="web">Web Completa / Institucional - Tu empresa en internet</option>
-                  </select>
+                  />
 
                   {selectedProject && (
                     <div style={styles.quoteInfoBox} className="quote-info-box">
-                      <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedProject.label}</h4>
+                      <div style={styles.quoteInfoHeader}>
+                        <span style={styles.quoteInfoIcon} className="quote-info-icon">
+                          <SvgIcon name={selectedProject.icon} size={22} />
+                        </span>
+                        <div>
+                          <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedProject.label}</h4>
+                          <p style={styles.quoteInfoTagline}>{selectedProject.tagline}</p>
+                        </div>
+                      </div>
                       <p style={styles.quoteInfoText} className="quote-info-text">{selectedProject.description}</p>
                       <div style={styles.quoteBestFor}>
                         {selectedProject.bestFor.map((item) => (
@@ -803,19 +921,17 @@ Detalle: ${customForm.details || "No informado"}`;
                       <span style={styles.quoteStepNumber}>2</span>
                       <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Qué plan se adapta mejor a tus necesidades?</h3>
                     </div>
-                    <select
+                    <QuoteSelect
                       value={quotePlan}
-                      onChange={(event) => setQuotePlan(event.target.value)}
-                      style={styles.quoteSelect}
-                      className="quote-select"
-                    >
-                      <option value="">Seleccioná un plan</option>
-                      {selectedProject.plans.map((plan) => (
-                        <option key={plan.id} value={plan.id}>
-                          {plan.name} - {formatPrice(plan.price)}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder="Seleccioná un plan"
+                      options={selectedProject.plans.map((plan) => ({
+                        value: plan.id,
+                        label: `${plan.name} - ${formatPrice(plan.price)}`,
+                        sub: plan.subtitle,
+                        icon: "grid",
+                      }))}
+                      onChange={setQuotePlan}
+                    />
 
                     {selectedPlan && (
                       <div style={styles.quoteInfoBox} className="quote-info-box">
@@ -846,7 +962,10 @@ Detalle: ${customForm.details || "No informado"}`;
                           className={`quote-addon${quoteAddons.includes(addon.id) ? " quote-addon-active" : ""}`}
                           onClick={() => toggleAddon(addon.id)}
                         >
-                          <span>
+                          <span style={styles.quoteAddonIcon} className="quote-addon-icon">
+                            <SvgIcon name={addon.icon} size={18} />
+                          </span>
+                          <span style={styles.quoteAddonCopy}>
                             <strong>{addon.name}</strong>
                             <small>{addon.description}</small>
                           </span>
@@ -863,18 +982,17 @@ Detalle: ${customForm.details || "No informado"}`;
                       <span style={styles.quoteStepNumber}>4</span>
                       <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Querés incluir mantenimiento mensual?</h3>
                     </div>
-                    <select
+                    <QuoteSelect
                       value={quoteMaintenance}
-                      onChange={(event) => setQuoteMaintenance(event.target.value)}
-                      style={styles.quoteSelect}
-                      className="quote-select"
-                    >
-                      {QUOTE_MAINTENANCE.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.name} {item.price ? `- ${formatPrice(item.price)}/mes` : "- Sin cargo"}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder="Seleccioná mantenimiento"
+                      options={QUOTE_MAINTENANCE.map((item) => ({
+                        value: item.id,
+                        label: `${item.name} ${item.price ? `- ${formatPrice(item.price)}/mes` : "- Sin cargo"}`,
+                        sub: item.description,
+                        icon: item.id === "none" ? "calculator" : "systems",
+                      }))}
+                      onChange={setQuoteMaintenance}
+                    />
                     <div style={styles.quoteInfoBox} className="quote-info-box">
                       <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedMaintenance.name}</h4>
                       <p style={styles.quoteInfoText} className="quote-info-text">{selectedMaintenance.description}</p>
@@ -950,7 +1068,9 @@ Detalle: ${customForm.details || "No informado"}`;
                   </>
                 ) : (
                   <div style={styles.quoteEmpty} className="quote-empty">
-                    <div style={styles.quoteEmptyIcon}>▦</div>
+                    <div style={styles.quoteEmptyIcon}>
+                      <SvgIcon name="calculator" size={44} />
+                    </div>
                     <p>Seleccioná el tipo de proyecto y el plan para ver el precio de tu cotización.</p>
                   </div>
                 )}
@@ -1243,8 +1363,8 @@ const css = `
 
   .nav-link { transition: color 0.2s; }
   .nav-link:hover { color: #fff !important; }
-  .nav-icon-link { transition: color 0.2s, border-color 0.2s, background 0.2s !important; }
-  .nav-icon-link:hover { border-color: #2a2a2a !important; background: rgba(255,255,255,0.04) !important; }
+  .nav-icon-link { transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s !important; }
+  .nav-icon-link:hover { border-color: #2a2a2a !important; background: rgba(255,255,255,0.04) !important; box-shadow: none !important; }
   .nav-dropdown-button { transition: color 0.2s, border-color 0.2s, background 0.2s !important; }
   .nav-dropdown-button:hover,
   .nav-dropdown-button-open { color: #fff !important; border-color: #2a2a2a !important; background: rgba(255,255,255,0.04) !important; }
@@ -1253,6 +1373,12 @@ const css = `
   .nav-dropdown-menu { animation: dropdownIn 0.18s ease both; }
   .nav-dropdown-item { transition: background 0.2s, border-color 0.2s, transform 0.2s !important; }
   .nav-dropdown-item:hover { background: #0a0a0a !important; border-color: #2a2a2a !important; transform: translateY(-1px); }
+  .nav-dropdown-item:hover .nav-dropdown-item-icon { background: #111 !important; color: #fff !important; }
+  .nav-dropdown-item-accent:hover { background: #0a0a0a !important; border-color: #2a2a2a !important; }
+  .mobile-service-link { transition: background 0.2s, border-color 0.2s !important; }
+  .mobile-service-link:hover { background: rgba(255,255,255,0.04) !important; border-color: #2a2a2a !important; }
+  .mobile-service-link strong { color: inherit; font-size: 0.92rem; line-height: 1.25; }
+  .mobile-service-link small { color: rgba(255,255,255,0.48); font-size: 0.76rem; line-height: 1.3; }
 
   @keyframes dropdownIn {
     from { opacity: 0; transform: translateY(8px); }
@@ -1287,6 +1413,24 @@ const css = `
   .quote-tab:hover,
   .quote-addon:hover { border-color: rgba(255,255,255,0.28) !important; background: #0a0a0a !important; }
   .quote-primary-btn:hover { transform: translateY(-1px); background: #e0e0e0 !important; }
+  .quote-tab svg,
+  .quote-badge svg,
+  .quote-info-icon svg,
+  .quote-addon-icon svg,
+  .quote-select-button-icon svg,
+  .quote-select-option-icon svg,
+  .nav-icon-symbol svg,
+  .nav-dropdown-item-icon svg,
+  .mobile-service-link svg { display: block; }
+  .quote-select-button,
+  .quote-select-option { transition: background 0.2s, border-color 0.2s, color 0.2s !important; }
+  .quote-select-button:hover,
+  .quote-select-button-open { border-color: rgba(255,255,255,0.34) !important; background: #0a0a0a !important; }
+  .quote-select-button-open .quote-select-caret { transform: rotate(180deg); }
+  .quote-select-menu { animation: dropdownIn 0.18s ease both; }
+  .quote-select-option:hover { background: #0a0a0a !important; border-color: #2a2a2a !important; }
+  .quote-select-option-active { background: #111 !important; border-color: #fff !important; color: #fff !important; }
+  .quote-select-option-active .quote-select-option-icon { color: #fff !important; border-color: #fff !important; }
   .quote-addon strong,
   .quote-total-box strong { color: inherit; font-size: 0.95rem; }
   .quote-addon small,
@@ -1575,10 +1719,21 @@ const css = `
       padding-right: 12px !important;
     }
 
+    .quote-select-menu {
+      position: static !important;
+      margin-top: 6px !important;
+      box-shadow: none !important;
+    }
+
     .quote-addon {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: 34px 1fr !important;
       gap: 8px !important;
       text-align: left !important;
+    }
+
+    .quote-addon b {
+      grid-column: 2 !important;
+      justify-self: start !important;
     }
 
     .quote-primary-btn {
@@ -1876,6 +2031,9 @@ const css = `
   .light-mode .quote-total-box,
   .light-mode .quote-input,
   .light-mode .quote-select,
+  .light-mode .quote-select-button,
+  .light-mode .quote-select-menu,
+  .light-mode .quote-select-option,
   .light-mode .testimonial-card,
   .light-mode .about-card,
   .light-mode .footer-icon-link {
@@ -1890,6 +2048,9 @@ const css = `
   .light-mode .faq-item:hover,
   .light-mode .quote-tab:hover,
   .light-mode .quote-addon:hover,
+  .light-mode .quote-select-button:hover,
+  .light-mode .quote-select-button-open,
+  .light-mode .quote-select-option:hover,
   .light-mode .about-card:hover {
     background: #ededed !important;
     border-color: #d8d8d8 !important;
@@ -1937,6 +2098,25 @@ const css = `
     color: #fff !important;
   }
 
+  .light-mode .quote-select-option-active {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: #111 !important;
+  }
+
+  .light-mode .quote-select-button-icon,
+  .light-mode .quote-select-option-icon {
+    background: #f5f5f5 !important;
+    border-color: #e5e5e5 !important;
+    color: #111 !important;
+  }
+
+  .light-mode .quote-select-option-active .quote-select-option-icon {
+    background: #111 !important;
+    border-color: #111 !important;
+    color: #fff !important;
+  }
+
   .light-mode .about-card:hover .about-point-dot {
     color: #000 !important;
   }
@@ -1980,11 +2160,12 @@ const css = `
     border-color: #ddd !important;
   }
 
-  .light-mode .nav-dropdown-item span:first-child {
+  .light-mode .nav-dropdown-item-title {
     color: #111 !important;
   }
 
-  .light-mode .nav-dropdown-item span:last-child {
+  .light-mode .nav-dropdown-item-sub,
+  .light-mode .mobile-service-link small {
     color: #555 !important;
   }
 
@@ -2164,14 +2345,17 @@ const styles = {
   navLinks: { display: "flex", gap: 22, marginLeft: "auto", alignItems: "center" },
   navLink: { minHeight: 34, display: "inline-flex", alignItems: "center", fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400 },
   navIconLink: { minHeight: 34, display: "inline-flex", alignItems: "center", gap: 7, fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400, border: "0.5px solid transparent", borderRadius: 6, padding: "0 9px" },
-  navIconSymbol: { fontSize: 15, lineHeight: 1, display: "inline-flex", alignItems: "center" },
+  navIconSymbol: { color: "#aaa", lineHeight: 1, display: "inline-flex", alignItems: "center" },
   navDropdownWrap: { position: "relative", display: "flex", alignItems: "center", minHeight: 34 },
   navDropdownButton: { minHeight: 34, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400, background: "transparent", border: "0.5px solid transparent", borderRadius: 6, padding: "0 9px", cursor: "pointer", fontFamily: "'Outfit', sans-serif", lineHeight: 1 },
   navDropdownChevron: { display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, lineHeight: 1, transformOrigin: "center" },
-  navDropdownMenu: { position: "absolute", top: "calc(100% + 14px)", left: -16, width: 276, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 8, display: "flex", flexDirection: "column", gap: 6, boxShadow: "0 18px 50px rgba(0,0,0,0.45)", zIndex: 140 },
-  navDropdownItem: { display: "flex", flexDirection: "column", gap: 4, background: "#070707", border: "0.5px solid #111", borderRadius: 8, padding: "11px 12px", textDecoration: "none" },
-  navDropdownItemTitle: { color: "#fff", fontSize: 13, fontWeight: 600, letterSpacing: "0.02em" },
-  navDropdownItemSub: { color: "#777", fontSize: 11, lineHeight: 1.35 },
+  navDropdownMenu: { position: "absolute", top: "calc(100% + 14px)", left: -16, width: 292, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 8, display: "flex", flexDirection: "column", gap: 6, boxShadow: "0 18px 50px rgba(0,0,0,0.45)", zIndex: 140 },
+  navDropdownItem: { display: "grid", gridTemplateColumns: "34px 1fr", alignItems: "center", gap: 12, background: "transparent", border: "1px solid transparent", borderRadius: 8, padding: "10px 12px", textDecoration: "none" },
+  navDropdownItemIcon: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#aaa", background: "#0a0a0a", border: "0.5px solid #1a1a1a", flexShrink: 0 },
+  navDropdownItemIconAccent: { color: "#fff", background: "#111" },
+  navDropdownItemCopy: { display: "flex", flexDirection: "column", gap: 3, minWidth: 0 },
+  navDropdownItemTitle: { color: "#fff", fontSize: 13, fontWeight: 600, letterSpacing: "0.02em", lineHeight: 1.25 },
+  navDropdownItemSub: { color: "rgba(255,255,255,0.45)", fontSize: 11, lineHeight: 1.35 },
   themeToggle: { marginLeft: 24, width: 34, height: 34, border: "0.5px solid #2a2a2a", color: "#fff", background: "#111", borderRadius: "50%", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", lineHeight: 1, flexShrink: 0 },
   navCta: { fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: "#000", background: "#fff", padding: "8px 20px", borderRadius: 4, textDecoration: "none", textTransform: "uppercase" },
   burger: { display: "none", flexDirection: "column", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 4 },
@@ -2180,6 +2364,10 @@ const styles = {
   mobileMenuDivider: { height: 0.5, background: "#1a1a1a", margin: "4px 0" },
   mobileMenuLabel: { fontSize: 10, color: "#555", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace", paddingTop: 4 },
   mobileLink: { fontSize: 15, color: "#aaa", textDecoration: "none", padding: "8px 0" },
+  mobileServiceLink: { display: "grid", gridTemplateColumns: "32px 1fr", alignItems: "center", gap: 12, color: "#fff", textDecoration: "none", padding: "9px 10px", borderRadius: 10, border: "0.5px solid #1a1a1a", background: "#050505" },
+  mobileServiceIcon: { width: 30, height: 30, display: "inline-flex", alignItems: "center", justifyContent: "center", borderRadius: 8, color: "#aaa", background: "#0a0a0a", border: "0.5px solid #1a1a1a" },
+  mobileServiceIconAccent: { color: "#fff", background: "#111" },
+  mobileServiceCopy: { display: "flex", flexDirection: "column", gap: 2 },
 
   // INTRO POSTER
   introPoster: { background: "transparent", padding: "110px 24px 72px" },
@@ -2298,11 +2486,11 @@ const styles = {
   // QUOTE
   quote: { padding: "100px 24px", borderTop: "0.5px solid #111" },
   quoteHero: { textAlign: "center", maxWidth: 760, margin: "0 auto 32px", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 },
-  quoteBadge: { display: "inline-flex", width: "fit-content", color: "#aaa", border: "0.5px solid #222", borderRadius: 99, padding: "6px 14px", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
+  quoteBadge: { display: "inline-flex", alignItems: "center", gap: 8, width: "fit-content", color: "#aaa", border: "0.5px solid #222", background: "transparent", borderRadius: 99, padding: "6px 14px", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
   quoteText: { fontSize: 15, color: "#777", lineHeight: 1.85, fontWeight: 300, maxWidth: 680 },
   quoteTabs: { width: "fit-content", margin: "0 auto 48px", display: "inline-flex", gap: 4, padding: 4, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12 },
-  quoteTab: { border: "0.5px solid transparent", borderRadius: 10, background: "transparent", color: "#777", padding: "11px 22px", fontSize: 13, fontWeight: 600, fontFamily: "'Outfit', sans-serif", cursor: "pointer" },
-  quoteTabActive: { background: "#fff", color: "#000", borderColor: "#fff" },
+  quoteTab: { border: "0.5px solid transparent", borderRadius: 10, background: "transparent", color: "#777", padding: "11px 22px", fontSize: 13, fontWeight: 600, fontFamily: "'Outfit', sans-serif", cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8 },
+  quoteTabActive: { background: "#fff", color: "#000", borderColor: "#fff", boxShadow: "none" },
   quoteLayout: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 380px", gap: 28, alignItems: "start" },
   quoteSteps: { display: "flex", flexDirection: "column", gap: 24 },
   quoteStepCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 16, padding: 30, display: "flex", flexDirection: "column", gap: 20 },
@@ -2310,15 +2498,33 @@ const styles = {
   quoteStepNumber: { width: 32, height: 32, borderRadius: "50%", background: "#fff", color: "#000", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 },
   quoteStepTitle: { fontSize: 18, fontWeight: 600, color: "#fff", lineHeight: 1.3 },
   quoteSelect: { width: "100%", height: 50, background: "#070707", color: "#fff", border: "0.5px solid #222", borderRadius: 8, padding: "0 14px", fontSize: 14, fontFamily: "'Outfit', sans-serif", outline: "none" },
+  quoteSelectWrap: { position: "relative", width: "100%" },
+  quoteSelectButton: { width: "100%", minHeight: 54, background: "#070707", color: "#fff", border: "0.5px solid #222", borderRadius: 8, padding: "9px 12px", fontSize: 14, fontFamily: "'Outfit', sans-serif", outline: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, textAlign: "left" },
+  quoteSelectButtonOpen: { background: "#0a0a0a", borderColor: "rgba(255,255,255,0.34)" },
+  quoteSelectButtonMain: { display: "flex", alignItems: "center", gap: 12, minWidth: 0 },
+  quoteSelectButtonIcon: { width: 32, height: 32, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#aaa", background: "#050505", border: "0.5px solid #222", flexShrink: 0 },
+  quoteSelectButtonCopy: { display: "flex", flexDirection: "column", gap: 2, minWidth: 0 },
+  quoteSelectCaret: { color: "#fff", lineHeight: 1, transition: "transform 0.2s ease", flexShrink: 0 },
+  quoteSelectMenu: { position: "absolute", zIndex: 60, top: "calc(100% + 6px)", left: 0, right: 0, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 10, padding: 7, display: "flex", flexDirection: "column", gap: 5, boxShadow: "0 18px 50px rgba(0,0,0,0.45)" },
+  quoteSelectOption: { width: "100%", minHeight: 48, display: "grid", gridTemplateColumns: "32px 1fr", alignItems: "center", gap: 12, background: "transparent", color: "#aaa", border: "0.5px solid transparent", borderRadius: 8, padding: "8px 10px", textAlign: "left", cursor: "pointer", fontFamily: "'Outfit', sans-serif" },
+  quoteSelectPlaceholderOption: { gridTemplateColumns: "1fr", color: "#fff" },
+  quoteSelectOptionActive: { background: "#111", borderColor: "#fff", color: "#fff" },
+  quoteSelectOptionIcon: { width: 30, height: 30, borderRadius: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#aaa", background: "#0a0a0a", border: "0.5px solid #222", flexShrink: 0 },
+  quoteSelectOptionCopy: { display: "flex", flexDirection: "column", gap: 2, minWidth: 0 },
   quoteInfoBox: { background: "#070707", border: "0.5px solid #222", borderRadius: 12, padding: 22 },
+  quoteInfoHeader: { display: "flex", alignItems: "center", gap: 12, marginBottom: 12 },
+  quoteInfoIcon: { width: 42, height: 42, borderRadius: 12, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#fff", background: "#111", border: "0.5px solid #222", flexShrink: 0 },
   quoteInfoTitle: { fontSize: 16, color: "#fff", fontWeight: 700, marginBottom: 8 },
+  quoteInfoTagline: { fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.35, margin: 0 },
   quoteInfoText: { fontSize: 14, color: "#aaa", lineHeight: 1.7 },
   quoteBestFor: { display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 },
   quoteChip: { background: "#050505", border: "0.5px solid #222", borderRadius: 99, color: "#aaa", fontSize: 11, padding: "6px 10px", fontFamily: "'Space Mono', monospace" },
   quoteIncludes: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 16 },
   quoteInclude: { color: "#aaa", fontSize: 13, lineHeight: 1.4 },
   quoteAddonList: { display: "flex", flexDirection: "column", gap: 10 },
-  quoteAddon: { display: "grid", gridTemplateColumns: "1fr auto", gap: 18, alignItems: "center", background: "#070707", color: "#aaa", border: "0.5px solid #222", borderRadius: 10, padding: 16, textAlign: "left", cursor: "pointer", fontFamily: "'Outfit', sans-serif" },
+  quoteAddon: { display: "grid", gridTemplateColumns: "34px 1fr auto", gap: 14, alignItems: "center", background: "#070707", color: "#aaa", border: "0.5px solid #222", borderRadius: 10, padding: 16, textAlign: "left", cursor: "pointer", fontFamily: "'Outfit', sans-serif" },
+  quoteAddonIcon: { width: 34, height: 34, borderRadius: 10, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#aaa", background: "#050505", border: "0.5px solid #222" },
+  quoteAddonCopy: { minWidth: 0 },
   quoteAddonActive: { background: "#111", color: "#fff", borderColor: "#fff" },
   quoteSummary: { position: "sticky", top: 84, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 18, padding: 28 },
   quoteSummaryTitle: { fontSize: 19, fontWeight: 800, color: "#fff", marginBottom: 4 },
@@ -2332,7 +2538,7 @@ const styles = {
   quoteTextarea: { minHeight: 130, resize: "vertical" },
   quotePrimaryBtn: { width: "100%", display: "inline-block", textAlign: "center", marginTop: 16, fontSize: 12, fontWeight: 600, color: "#000", background: "#fff", padding: "14px 20px", borderRadius: 10, textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase" },
   quoteEmpty: { textAlign: "center", padding: "36px 8px", color: "#555", fontSize: 14, lineHeight: 1.65 },
-  quoteEmptyIcon: { fontSize: 42, marginBottom: 12, color: "#333" },
+  quoteEmptyIcon: { display: "inline-flex", marginBottom: 12, color: "#333" },
   customQuoteLayout: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, alignItems: "start" },
   customTitle: { fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 700, lineHeight: 1.15, textTransform: "uppercase", color: "#fff" },
   customFeatureList: { display: "grid", gap: 12, marginTop: 8 },
