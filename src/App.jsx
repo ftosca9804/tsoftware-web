@@ -40,29 +40,196 @@ const NAV_LINKS = [
   { label: "Inicio", href: "#inicio" },
   { label: "Nosotros", href: "#nosotros" },
   { label: "Servicios", href: "#servicios" },
+  { label: "Cotizador", href: "#cotizador", icon: "▦" },
   { label: "Contacto", href: "#contacto" },
+];
+
+const DESKTOP_SERVICE_LINKS = [
+  { label: "Landing Pages", href: "#landing-pages", sub: "Campañas y captación de leads" },
+  { label: "Webs Institucionales", href: "#webs-institucionales", sub: "Presencia profesional y confianza" },
+  { label: "Sistemas a Medida", href: "#sistemas-a-medida", sub: "Automatización interna" },
+  { label: "Todos los servicios", href: "#servicios", sub: "Ver la oferta completa" },
+];
+
+const MOBILE_SERVICE_LINKS = [
+  { label: "Landing Pages", href: "#landing-pages" },
+  { label: "Webs Institucionales", href: "#webs-institucionales" },
+  { label: "Sistemas a Medida", href: "#sistemas-a-medida" },
+  { label: "Todos los servicios", href: "#servicios" },
+  { label: "Cotizador", href: "#cotizador" },
+];
+
+const QUOTE_PROJECTS = {
+  landing: {
+    label: "Landing Page",
+    tagline: "Convierte visitantes en clientes",
+    description: "Una página estratégica enfocada en captar consultas, presentar una oferta clara y convertir tráfico en oportunidades reales.",
+    bestFor: ["Campañas publicitarias", "Lanzamientos", "Servicios puntuales", "Captación de leads"],
+    plans: [
+      {
+        id: "basic",
+        name: "Básico",
+        subtitle: "Presencia simple y efectiva",
+        price: 180000,
+        delivery: "5-7 días hábiles",
+        includes: ["Hasta 3 secciones", "Formulario de contacto", "Botón de WhatsApp", "Diseño responsive", "SEO básico"],
+      },
+      {
+        id: "standard",
+        name: "Estándar",
+        subtitle: "Más contenido y optimización",
+        price: 280000,
+        delivery: "7-10 días hábiles",
+        includes: ["Todo lo del plan Básico", "Hasta 6 secciones", "Animaciones sutiles", "SEO avanzado", "Integración con Analytics"],
+      },
+      {
+        id: "premium",
+        name: "Premium",
+        subtitle: "Landing preparada para escalar",
+        price: 420000,
+        delivery: "10-14 días hábiles",
+        includes: ["Todo lo del plan Estándar", "Copy orientado a conversión", "Pixel de Meta", "Optimización de velocidad", "5 rondas de revisión"],
+      },
+    ],
+  },
+  web: {
+    label: "Web Completa / Institucional",
+    tagline: "Tu empresa en internet, con todo lo que necesita",
+    description: "Un sitio web completo para presentar tu empresa, servicios, historia y canales de contacto con una estructura profesional.",
+    bestFor: ["Empresas consolidadas", "Profesionales", "Instituciones", "Comercios con varios servicios"],
+    plans: [
+      {
+        id: "basic",
+        name: "Básico",
+        subtitle: "Sitio institucional inicial",
+        price: 320000,
+        delivery: "8-12 días hábiles",
+        includes: ["Hasta 4 páginas", "Inicio, servicios, nosotros y contacto", "Formulario funcional", "Diseño responsive", "SEO básico"],
+      },
+      {
+        id: "standard",
+        name: "Estándar",
+        subtitle: "Web completa para crecer",
+        price: 520000,
+        delivery: "12-18 días hábiles",
+        includes: ["Todo lo del plan Básico", "Hasta 8 páginas", "Blog o novedades", "SEO avanzado", "Integración con herramientas"],
+      },
+      {
+        id: "premium",
+        name: "Premium",
+        subtitle: "Solución institucional avanzada",
+        price: 780000,
+        delivery: "18-25 días hábiles",
+        includes: ["Todo lo del plan Estándar", "Panel de contenidos", "Área privada simple", "SEO premium", "Soporte post-entrega"],
+      },
+    ],
+  },
+};
+
+const QUOTE_ADDONS = {
+  landing: [
+    { id: "whatsapp", name: "Widget de WhatsApp", description: "Botón flotante para contacto directo.", price: 35000 },
+    { id: "analytics", name: "Analytics + Pixel", description: "Medición de visitas y campañas.", price: 55000 },
+    { id: "copy", name: "Copywriting comercial", description: "Textos orientados a conversión.", price: 70000 },
+    { id: "video", name: "Sección con video", description: "Integración de video provisto por el cliente.", price: 45000 },
+  ],
+  web: [
+    { id: "blog", name: "Blog / Novedades", description: "Sección administrable para contenidos.", price: 85000 },
+    { id: "catalog", name: "Catálogo de servicios", description: "Listado organizado de servicios o productos.", price: 95000 },
+    { id: "booking", name: "Turnos o reservas", description: "Formulario avanzado para coordinar citas.", price: 120000 },
+    { id: "languages", name: "Versión bilingüe", description: "Estructura para dos idiomas.", price: 140000 },
+  ],
+};
+
+const QUOTE_MAINTENANCE = [
+  { id: "none", name: "Sin mantenimiento", price: 0, description: "Te entregamos el proyecto finalizado con código y archivos listos." },
+  { id: "basic", name: "Básico", price: 45000, description: "Actualizaciones menores, backups y soporte por email.", includes: ["Backups mensuales", "Ajustes menores", "Soporte por email"] },
+  { id: "standard", name: "Estándar", price: 70000, description: "Mantenimiento activo con mejoras y soporte prioritario.", includes: ["Todo lo del plan Básico", "Actualizaciones de contenido", "Soporte por WhatsApp"] },
+  { id: "premium", name: "Premium", price: 120000, description: "Soporte completo, mejoras continuas y seguimiento SEO.", includes: ["Todo lo del plan Estándar", "SEO mensual activo", "Soporte prioritario"] },
 ];
 
 const SERVICES = [
   {
     icon: "◈",
-    title: "Desarrollo Web",
-    desc: "Sitios y plataformas web a medida, rápidas, modernas y orientadas a resultados reales para tu negocio.",
+    title: "Landing Pages",
+    desc: "Páginas enfocadas en captar consultas, convertir visitas en clientes y acompañar campañas, anuncios o lanzamientos.",
   },
   {
     icon: "◉",
-    title: "Apps Móviles",
-    desc: "Aplicaciones nativas y multiplataforma para Android e iOS que escalan con tu negocio.",
+    title: "Páginas Web Profesionales",
+    desc: "Sitios institucionales modernos, responsive, con formularios, contenido claro y base SEO para aparecer mejor en Google.",
   },
   {
     icon: "⬡",
-    title: "Sistemas de Gestión",
-    desc: "Software a medida para automatizar procesos, controlar stock, ventas y equipos desde un solo lugar.",
+    title: "Sistemas y CRM a Medida",
+    desc: "Software para gestionar clientes, turnos, reservas, stock, ventas, equipos y procesos internos desde un solo lugar.",
   },
   {
     icon: "◎",
-    title: "IA para Negocios",
-    desc: "Integramos inteligencia artificial en tu operación: chatbots, automatizaciones y análisis de datos.",
+    title: "SEO, IA y Automatización",
+    desc: "Optimizamos la presencia digital e integramos automatizaciones, chatbots e IA para que tu operación trabaje mejor.",
+  },
+];
+
+const DIGITAL_SOLUTIONS = [
+  {
+    id: "landing-pages",
+    tag: "Captación",
+    title: "Landing pages que convierten",
+    desc: "Una página directa, rápida y persuasiva para presentar tu oferta, recibir consultas y medir resultados desde el primer día.",
+    points: ["Diseño responsive", "Formulario o WhatsApp", "Estructura orientada a ventas"],
+  },
+  {
+    id: "webs-institucionales",
+    tag: "Presencia",
+    title: "Webs institucionales",
+    desc: "Una base digital sólida para mostrar quién sos, qué hacés y por qué confiar en tu negocio, con una experiencia clara en celular y escritorio.",
+    points: ["Secciones completas", "SEO técnico inicial", "Carga rápida"],
+  },
+  {
+    id: "sistemas-a-medida",
+    tag: "Operación",
+    title: "Sistemas personalizados",
+    desc: "Herramientas internas para ordenar procesos, ahorrar tiempo y reemplazar planillas o tareas manuales por software hecho para tu forma de trabajar.",
+    points: ["CRM y paneles", "Reservas o turnos", "Roles y reportes"],
+  },
+];
+
+const BENEFITS = [
+  {
+    title: "Velocidad optimizada",
+    desc: "Construimos experiencias livianas, rápidas y preparadas para usuarios que navegan desde cualquier dispositivo.",
+  },
+  {
+    title: "SEO técnico incluido",
+    desc: "Cuidamos estructura, etiquetas, performance y contenido base para que tu web tenga mejores señales para buscadores.",
+  },
+  {
+    title: "100% responsive",
+    desc: "Diseños adaptados a celular, tablet y escritorio, porque la mayoría de tus clientes te encuentra desde el teléfono.",
+  },
+  {
+    title: "Soporte post-lanzamiento",
+    desc: "Después de publicar, seguimos cerca para ajustes, mejoras y acompañamiento técnico sin vueltas.",
+  },
+];
+
+const FAQS = [
+  {
+    question: "¿Qué puedo pedirles?",
+    answer: "Una landing page, una web institucional, una tienda, un sistema interno, un CRM, automatizaciones o una integración con IA.",
+  },
+  {
+    question: "¿Trabajan con negocios que recién empiezan?",
+    answer: "Sí. Podemos armar una primera versión simple y escalable, pensada para validar rápido sin gastar de más.",
+  },
+  {
+    question: "¿La web queda lista para Google?",
+    answer: "Incluimos una base técnica SEO: estructura clara, performance, textos ordenados, responsive y metadatos esenciales.",
+  },
+  {
+    question: "¿Puedo pedir cambios después de lanzar?",
+    answer: "Sí. El soporte post-entrega está incluido y también podemos coordinar mejoras continuas según lo que necesites.",
   },
 ];
 
@@ -99,13 +266,22 @@ const PROCESS = [
 
 const HERO_SLIDES = [heroDeviceShowcaseDesktop, heroCarousel2, heroCarousel3, heroCarouselOfficeDesktop];
 const HERO_SLIDES_MOBILE = [heroDeviceMobile, heroMonitorDesktop, heroAgencyOffice, heroCarouselMobile, heroCarousel3];
+const SHOW_TESTIMONIALS = false;
 
 export default function TSoftware() {
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [activeService, setActiveService] = useState(0);
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const [quoteMode, setQuoteMode] = useState("quoter");
+  const [quoteProject, setQuoteProject] = useState("");
+  const [quotePlan, setQuotePlan] = useState("");
+  const [quoteAddons, setQuoteAddons] = useState([]);
+  const [quoteMaintenance, setQuoteMaintenance] = useState("none");
+  const [quoteContact, setQuoteContact] = useState({ name: "", email: "", phone: "" });
+  const [customForm, setCustomForm] = useState({ name: "", email: "", company: "", details: "" });
   const [isMobile, setIsMobile] = useState(() => (typeof window !== "undefined" ? window.innerWidth <= 768 : false));
   const heroRef = useRef(null);
   const currentHeroSlides = isMobile ? HERO_SLIDES_MOBILE : HERO_SLIDES;
@@ -152,9 +328,65 @@ export default function TSoftware() {
     document.body.style.color = theme === "light" ? "#111" : "#fff";
   }, [theme]);
 
+  useEffect(() => {
+    const revealNodes = Array.from(document.querySelectorAll(".reveal, .reveal-item"));
+
+    if (!("IntersectionObserver" in window)) {
+      revealNodes.forEach((node) => node.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealNodes.forEach((node, index) => {
+      if (node.classList.contains("reveal-item")) {
+        node.style.setProperty("--reveal-delay", `${Math.min(index % 8, 6) * 70}ms`);
+      }
+      observer.observe(node);
+    });
+
+    return () => observer.disconnect();
+  }, [quoteMode, quoteProject, quotePlan, quoteMaintenance]);
+
   const navBg = scrollY > 60;
   const navBackground = navBg ? (theme === "light" ? "rgba(255,255,255,0.92)" : "rgba(0,0,0,0.92)") : "transparent";
   const navBorder = navBg ? (theme === "light" ? "0.5px solid #e5e5e5" : "0.5px solid #1a1a1a") : "none";
+  const formatPrice = (value) => value.toLocaleString("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 });
+  const selectedProject = quoteProject ? QUOTE_PROJECTS[quoteProject] : null;
+  const selectedPlan = selectedProject?.plans.find((plan) => plan.id === quotePlan);
+  const selectedAddons = quoteProject ? QUOTE_ADDONS[quoteProject].filter((addon) => quoteAddons.includes(addon.id)) : [];
+  const selectedMaintenance = QUOTE_MAINTENANCE.find((item) => item.id === quoteMaintenance) || QUOTE_MAINTENANCE[0];
+  const quoteProjectTotal = (selectedPlan?.price || 0) + selectedAddons.reduce((total, addon) => total + addon.price, 0);
+  const hasQuote = Boolean(selectedProject && selectedPlan);
+  const quoteMessage = hasQuote
+    ? `Hola T-Software, quiero avanzar con esta cotización:
+Proyecto: ${selectedProject.label}
+Plan: ${selectedPlan.name} - ${formatPrice(selectedPlan.price)}
+Extras: ${selectedAddons.length ? selectedAddons.map((addon) => addon.name).join(", ") : "Sin extras"}
+Proyecto pago único: ${formatPrice(quoteProjectTotal)}
+Mantenimiento: ${selectedMaintenance.price ? `${formatPrice(selectedMaintenance.price)}/mes` : "Sin mantenimiento"}
+Nombre: ${quoteContact.name || "No informado"}
+Email: ${quoteContact.email || "No informado"}
+Teléfono: ${quoteContact.phone || "No informado"}`
+    : "Hola T-Software, quiero cotizar mi proyecto digital.";
+  const customMessage = `Hola T-Software, quiero cotizar un desarrollo a medida.
+Nombre: ${customForm.name || "No informado"}
+Email: ${customForm.email || "No informado"}
+Empresa: ${customForm.company || "No informado"}
+Detalle: ${customForm.details || "No informado"}`;
+  const toggleAddon = (addonId) => {
+    setQuoteAddons((prev) => (prev.includes(addonId) ? prev.filter((id) => id !== addonId) : [...prev, addonId]));
+  };
 
   return (
     <div style={styles.root} className={theme === "light" ? "light-mode" : ""}>
@@ -174,7 +406,42 @@ export default function TSoftware() {
           </div>
           <div style={styles.navLinks} className="nav-links">
             {NAV_LINKS.map((l) => (
-              <a key={l.label} href={l.href} style={styles.navLink} className="nav-link">{l.label}</a>
+              l.label === "Servicios" ? (
+                <div key={l.label} style={styles.navDropdownWrap} className="nav-dropdown-wrap">
+                  <button
+                    type="button"
+                    style={styles.navDropdownButton}
+                    className={`nav-link nav-dropdown-button${servicesMenuOpen ? " nav-dropdown-button-open" : ""}`}
+                    onClick={() => setServicesMenuOpen((prev) => !prev)}
+                    aria-expanded={servicesMenuOpen}
+                    aria-controls="desktop-services-menu"
+                  >
+                    Servicios
+                    <span style={styles.navDropdownChevron} className="nav-dropdown-chevron">⌄</span>
+                  </button>
+                  {servicesMenuOpen && (
+                    <div id="desktop-services-menu" style={styles.navDropdownMenu} className="nav-dropdown-menu">
+                      {DESKTOP_SERVICE_LINKS.map((item) => (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          style={styles.navDropdownItem}
+                          className="nav-dropdown-item"
+                          onClick={() => setServicesMenuOpen(false)}
+                        >
+                          <span style={styles.navDropdownItemTitle}>{item.label}</span>
+                          <span style={styles.navDropdownItemSub}>{item.sub}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <a key={l.label} href={l.href} style={l.icon ? styles.navIconLink : styles.navLink} className={l.icon ? "nav-link nav-icon-link" : "nav-link"} onClick={() => setServicesMenuOpen(false)}>
+                  {l.icon && <span style={styles.navIconSymbol} aria-hidden="true">{l.icon}</span>}
+                  <span>{l.label}</span>
+                </a>
+              )
             ))}
           </div>
           <button
@@ -209,6 +476,11 @@ export default function TSoftware() {
         {menuOpen && (
           <div style={styles.mobileMenu} className="mobile-menu">
             {NAV_LINKS.map((l) => (
+              <a key={l.label} href={l.href} style={styles.mobileLink} onClick={() => setMenuOpen(false)}>{l.label}</a>
+            ))}
+            <div style={styles.mobileMenuDivider} />
+            <div style={styles.mobileMenuLabel}>Servicios</div>
+            {MOBILE_SERVICE_LINKS.map((l) => (
               <a key={l.label} href={l.href} style={styles.mobileLink} onClick={() => setMenuOpen(false)}>{l.label}</a>
             ))}
           </div>
@@ -276,14 +548,10 @@ export default function TSoftware() {
             </div>
           </div>
         </div>
-        <div style={styles.scrollHint} className="scroll-hint">
-          <div style={styles.scrollLine} />
-          <span style={styles.scrollText}>scroll</span>
-        </div>
       </section>
 
       {/* INTRO POSTER */}
-      <section style={styles.introPoster}>
+      <section style={styles.introPoster} className="reveal">
         <div style={styles.introFrame} className="intro-frame">
           <div style={styles.introTopTitle} className="intro-title">
             Construimos el <span style={styles.accent}>futuro digital</span> de tu negocio.
@@ -292,7 +560,7 @@ export default function TSoftware() {
       </section>
 
       {/* LOGOS BAR */}
-      <div style={styles.logosBar} className="logos-bar">
+      <div style={styles.logosBar} className="logos-bar reveal">
         <div style={styles.logosInner} className="logos-inner">
           {["React", "Node.js", "Flutter", "Python", "OpenAI", "Firebase", "AWS", "PostgreSQL"].map((t) => (
             <span key={t} style={styles.logoTag} className="logo-tag">{t}</span>
@@ -301,7 +569,7 @@ export default function TSoftware() {
       </div>
 
       {/* ABOUT */}
-      <section style={styles.about} id="nosotros" className="about-section">
+      <section style={styles.about} id="nosotros" className="about-section reveal">
         <div style={styles.container}>
           <div style={styles.aboutGrid} className="about-grid">
             <div style={styles.aboutLeft}>
@@ -342,19 +610,19 @@ export default function TSoftware() {
       </section>
 
       {/* SERVICES */}
-      <section style={styles.services} id="servicios" className="services-section">
+      <section style={styles.services} id="servicios" className="services-section reveal">
         <div style={styles.container}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>NUESTROS SERVICIOS</div>
             <h2 style={styles.sectionTitle} className="section-title">Lo que construimos</h2>
-            <p style={styles.sectionSub}>Soluciones digitales completas para negocios que quieren crecer.</p>
+            <p style={styles.sectionSub}>Soluciones digitales completas para captar clientes, profesionalizar tu marca y ordenar tu operación.</p>
           </div>
           <div style={styles.servicesGrid} className="services-grid">
             {SERVICES.map((s, i) => (
               <div
                 key={s.title}
                 style={{ ...styles.serviceCard, ...(activeService === i ? styles.serviceCardActive : {}) }}
-                className="service-card"
+                className="service-card reveal-item"
                 onMouseEnter={() => setActiveService(i)}
               >
                 <div style={styles.serviceIcon} className="service-icon">{s.icon}</div>
@@ -367,8 +635,59 @@ export default function TSoftware() {
         </div>
       </section>
 
+      {/* DIGITAL SOLUTIONS */}
+      <section style={styles.solutions} className="solutions-section reveal">
+        <div style={styles.container}>
+          <div style={styles.splitHeader} className="split-header">
+            <div>
+              <div style={styles.sectionLabel}>SOLUCIONES DIGITALES</div>
+              <h2 style={styles.sectionTitle} className="section-title">
+                Tu web, landing o sistema<br /><span style={styles.accent}>listo para crecer.</span>
+              </h2>
+            </div>
+            <p style={styles.splitHeaderText}>
+              Diseñamos y desarrollamos productos digitales modernos, optimizados y entregados en tiempo y forma. La idea es simple: más confianza, más consultas y menos tareas manuales.
+            </p>
+          </div>
+          <div style={styles.solutionsGrid} className="solutions-grid">
+            {DIGITAL_SOLUTIONS.map((item) => (
+              <article key={item.title} id={item.id} style={styles.solutionCard} className="solution-card reveal-item">
+                <span style={styles.solutionTag} className="solution-tag">{item.tag}</span>
+                <h3 style={styles.solutionTitle} className="solution-title">{item.title}</h3>
+                <p style={styles.solutionDesc}>{item.desc}</p>
+                <div style={styles.solutionPoints}>
+                  {item.points.map((point) => (
+                    <span key={point} style={styles.solutionPoint} className="solution-point">{point}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFITS */}
+      <section style={styles.benefits} className="benefits-section reveal">
+        <div style={styles.container}>
+          <div style={styles.sectionHeader}>
+            <div style={styles.sectionLabel}>QUÉ INCLUIMOS</div>
+            <h2 style={styles.sectionTitle} className="section-title">Detalles que hacen<br />la diferencia.</h2>
+            <p style={styles.sectionSub}>No se trata solo de que se vea bien. También tiene que cargar rápido, funcionar en móvil y quedar preparada para vender.</p>
+          </div>
+          <div style={styles.benefitsGrid} className="benefits-grid">
+            {BENEFITS.map((benefit, index) => (
+              <div key={benefit.title} style={styles.benefitItem} className="benefit-item reveal-item">
+                <div style={styles.benefitIndex}>{String(index + 1).padStart(2, "0")}</div>
+                <h3 style={styles.benefitTitle} className="benefit-title">{benefit.title}</h3>
+                <p style={styles.benefitDesc}>{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PROCESS */}
-      <section style={styles.process} className="process-section">
+      <section style={styles.process} className="process-section reveal">
         <div style={styles.container}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>CÓMO TRABAJAMOS</div>
@@ -376,7 +695,7 @@ export default function TSoftware() {
           </div>
           <div style={styles.processGrid} className="process-grid">
             {PROCESS.map((p, i) => (
-              <div key={p.num} style={styles.processStep} className="process-step">
+              <div key={p.num} style={styles.processStep} className="process-step reveal-item">
                 <div style={styles.processNum}>{p.num}</div>
                 {i < PROCESS.length - 1 && <div style={styles.processLine} className="process-line" />}
                 <div style={styles.processBody}>
@@ -389,9 +708,319 @@ export default function TSoftware() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section style={styles.faq} className="faq-section reveal">
+        <div style={styles.container}>
+          <div style={styles.splitHeader} className="split-header">
+            <div>
+              <div style={styles.sectionLabel}>PREGUNTAS FRECUENTES</div>
+              <h2 style={styles.sectionTitle} className="section-title">Antes de empezar</h2>
+            </div>
+            <p style={styles.splitHeaderText}>
+              Si ya tenés una idea, un problema operativo o solo la intuición de que tu negocio necesita una mejor presencia digital, podemos convertirlo en un plan concreto.
+            </p>
+          </div>
+          <div style={styles.faqGrid} className="faq-grid">
+            {FAQS.map((faq) => (
+              <div key={faq.question} style={styles.faqItem} className="faq-item reveal-item">
+                <h3 style={styles.faqQuestion} className="faq-question">{faq.question}</h3>
+                <p style={styles.faqAnswer}>{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* QUOTE */}
+      <section style={styles.quote} id="cotizador" className="quote-section reveal">
+        <div style={styles.container}>
+          <div style={styles.quoteHero} className="quote-hero">
+            <div style={styles.quoteBadge} className="quote-badge">Calculá tu inversión</div>
+            <h2 style={styles.sectionTitle} className="section-title">
+              Cotizá tu <span style={styles.accent}>Proyecto Digital</span>
+            </h2>
+            <p style={styles.quoteText} className="quote-text">
+              Calculá el precio de tu landing page o sitio web de forma instantánea y transparente. Para proyectos a medida, completá el formulario y te enviamos un presupuesto personalizado.
+            </p>
+          </div>
+          <div style={styles.quoteTabs} className="quote-tabs">
+            {[
+              { id: "quoter", label: "Cotizador Online" },
+              { id: "custom", label: "Desarrollo a Medida" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                style={{ ...styles.quoteTab, ...(quoteMode === tab.id ? styles.quoteTabActive : {}) }}
+                className={`quote-tab${quoteMode === tab.id ? " quote-tab-active" : ""}`}
+                onClick={() => setQuoteMode(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {quoteMode === "quoter" ? (
+            <div style={styles.quoteLayout} className="quote-layout">
+              <div style={styles.quoteSteps}>
+                <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                  <div style={styles.quoteStepTitleRow}>
+                    <span style={styles.quoteStepNumber}>1</span>
+                    <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Qué tipo de proyecto necesitás?</h3>
+                  </div>
+                  <select
+                    value={quoteProject}
+                    onChange={(event) => {
+                      setQuoteProject(event.target.value);
+                      setQuotePlan("");
+                      setQuoteAddons([]);
+                      setQuoteMaintenance("none");
+                    }}
+                    style={styles.quoteSelect}
+                    className="quote-select"
+                  >
+                    <option value="">Seleccioná el tipo de proyecto</option>
+                    <option value="landing">Landing Page - Convierte visitantes en clientes</option>
+                    <option value="web">Web Completa / Institucional - Tu empresa en internet</option>
+                  </select>
+
+                  {selectedProject && (
+                    <div style={styles.quoteInfoBox} className="quote-info-box">
+                      <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedProject.label}</h4>
+                      <p style={styles.quoteInfoText} className="quote-info-text">{selectedProject.description}</p>
+                      <div style={styles.quoteBestFor}>
+                        {selectedProject.bestFor.map((item) => (
+                          <span key={item} style={styles.quoteChip} className="quote-chip">{item}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {selectedProject && (
+                  <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                    <div style={styles.quoteStepTitleRow}>
+                      <span style={styles.quoteStepNumber}>2</span>
+                      <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Qué plan se adapta mejor a tus necesidades?</h3>
+                    </div>
+                    <select
+                      value={quotePlan}
+                      onChange={(event) => setQuotePlan(event.target.value)}
+                      style={styles.quoteSelect}
+                      className="quote-select"
+                    >
+                      <option value="">Seleccioná un plan</option>
+                      {selectedProject.plans.map((plan) => (
+                        <option key={plan.id} value={plan.id}>
+                          {plan.name} - {formatPrice(plan.price)}
+                        </option>
+                      ))}
+                    </select>
+
+                    {selectedPlan && (
+                      <div style={styles.quoteInfoBox} className="quote-info-box">
+                        <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedPlan.name} · {selectedPlan.subtitle}</h4>
+                        <p style={styles.quoteInfoText} className="quote-info-text">Entrega estimada: {selectedPlan.delivery}</p>
+                        <div style={styles.quoteIncludes} className="quote-includes">
+                          {selectedPlan.includes.map((item) => (
+                            <span key={item} style={styles.quoteInclude} className="quote-include">✓ {item}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {selectedPlan && (
+                  <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                    <div style={styles.quoteStepTitleRow}>
+                      <span style={styles.quoteStepNumber}>3</span>
+                      <h3 style={styles.quoteStepTitle} className="quote-step-title">Extras opcionales</h3>
+                    </div>
+                    <div style={styles.quoteAddonList} className="quote-addon-list">
+                      {QUOTE_ADDONS[quoteProject].map((addon) => (
+                        <button
+                          key={addon.id}
+                          type="button"
+                          style={{ ...styles.quoteAddon, ...(quoteAddons.includes(addon.id) ? styles.quoteAddonActive : {}) }}
+                          className={`quote-addon${quoteAddons.includes(addon.id) ? " quote-addon-active" : ""}`}
+                          onClick={() => toggleAddon(addon.id)}
+                        >
+                          <span>
+                            <strong>{addon.name}</strong>
+                            <small>{addon.description}</small>
+                          </span>
+                          <b>+{formatPrice(addon.price)}</b>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedPlan && (
+                  <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                    <div style={styles.quoteStepTitleRow}>
+                      <span style={styles.quoteStepNumber}>4</span>
+                      <h3 style={styles.quoteStepTitle} className="quote-step-title">¿Querés incluir mantenimiento mensual?</h3>
+                    </div>
+                    <select
+                      value={quoteMaintenance}
+                      onChange={(event) => setQuoteMaintenance(event.target.value)}
+                      style={styles.quoteSelect}
+                      className="quote-select"
+                    >
+                      {QUOTE_MAINTENANCE.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name} {item.price ? `- ${formatPrice(item.price)}/mes` : "- Sin cargo"}
+                        </option>
+                      ))}
+                    </select>
+                    <div style={styles.quoteInfoBox} className="quote-info-box">
+                      <h4 style={styles.quoteInfoTitle} className="quote-info-title">{selectedMaintenance.name}</h4>
+                      <p style={styles.quoteInfoText} className="quote-info-text">{selectedMaintenance.description}</p>
+                      {selectedMaintenance.includes && (
+                        <div style={styles.quoteIncludes} className="quote-includes">
+                          {selectedMaintenance.includes.map((item) => (
+                            <span key={item} style={styles.quoteInclude} className="quote-include">✓ {item}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <aside style={styles.quoteSummary} className="quote-summary reveal-item">
+                <h3 style={styles.quoteSummaryTitle} className="quote-summary-title">Tu Cotización</h3>
+                <p style={styles.quoteSummarySub} className="quote-summary-sub">Precios en pesos argentinos (ARS)</p>
+                {hasQuote ? (
+                  <>
+                    <div style={styles.quoteSummaryRow}>
+                      <span>Plan {selectedPlan.name}</span>
+                      <strong>{formatPrice(selectedPlan.price)}</strong>
+                    </div>
+                    {selectedAddons.map((addon) => (
+                      <div key={addon.id} style={styles.quoteSummaryRow}>
+                        <span>{addon.name}</span>
+                        <strong>+{formatPrice(addon.price)}</strong>
+                      </div>
+                    ))}
+                    <div style={styles.quoteDivider} />
+                    <div style={styles.quoteTotalBox} className="quote-total-box">
+                      <span>Proyecto (pago único)</span>
+                      <strong>{formatPrice(quoteProjectTotal)}</strong>
+                      {selectedMaintenance.price > 0 && <small>+ {formatPrice(selectedMaintenance.price)}/mes mantenimiento</small>}
+                    </div>
+                    <p style={styles.quoteNote} className="quote-note">
+                      Precio orientativo. El dominio, hosting y contenidos finales pueden ajustarse según los requerimientos del proyecto.
+                    </p>
+                    <div style={styles.quoteContactGrid}>
+                      <input
+                        value={quoteContact.name}
+                        onChange={(event) => setQuoteContact((prev) => ({ ...prev, name: event.target.value }))}
+                        placeholder="Nombre completo"
+                        style={styles.quoteInput}
+                        className="quote-input"
+                      />
+                      <input
+                        value={quoteContact.email}
+                        onChange={(event) => setQuoteContact((prev) => ({ ...prev, email: event.target.value }))}
+                        placeholder="Email"
+                        type="email"
+                        style={styles.quoteInput}
+                        className="quote-input"
+                      />
+                      <input
+                        value={quoteContact.phone}
+                        onChange={(event) => setQuoteContact((prev) => ({ ...prev, phone: event.target.value }))}
+                        placeholder="Teléfono"
+                        style={styles.quoteInput}
+                        className="quote-input"
+                      />
+                    </div>
+                    <a
+                      href={`https://wa.me/5493886576724?text=${encodeURIComponent(quoteMessage)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={styles.quotePrimaryBtn}
+                      className="quote-primary-btn"
+                    >
+                      Solicitar cotización
+                    </a>
+                  </>
+                ) : (
+                  <div style={styles.quoteEmpty} className="quote-empty">
+                    <div style={styles.quoteEmptyIcon}>▦</div>
+                    <p>Seleccioná el tipo de proyecto y el plan para ver el precio de tu cotización.</p>
+                  </div>
+                )}
+              </aside>
+            </div>
+          ) : (
+            <div style={styles.customQuoteLayout} className="custom-quote-layout">
+              <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                <h3 style={styles.customTitle} className="custom-title">Desarrollo de <span style={styles.accent}>Sistemas a Medida</span></h3>
+                <p style={styles.quoteText} className="quote-text">
+                  Los proyectos personalizados tienen una complejidad y alcance únicos. Contanos qué necesitás y te armamos una propuesta a medida.
+                </p>
+                <div style={styles.customFeatureList}>
+                  {["CRM, ERP o paneles internos", "Turnos, reservas o portales de usuarios", "Automatizaciones e integraciones", "Apps web o móviles personalizadas"].map((item) => (
+                    <div key={item} style={styles.customFeature} className="custom-feature">✓ {item}</div>
+                  ))}
+                </div>
+              </div>
+              <div style={styles.quoteStepCard} className="quote-step-card reveal-item">
+                <h3 style={styles.quoteStepTitle} className="quote-step-title">Completá el formulario</h3>
+                <p style={styles.quoteSummarySub} className="quote-summary-sub">Te contacto con una propuesta personalizada.</p>
+                <div style={styles.quoteContactGrid}>
+                  <input
+                    value={customForm.name}
+                    onChange={(event) => setCustomForm((prev) => ({ ...prev, name: event.target.value }))}
+                    placeholder="Nombre completo *"
+                    style={styles.quoteInput}
+                    className="quote-input"
+                  />
+                  <input
+                    value={customForm.email}
+                    onChange={(event) => setCustomForm((prev) => ({ ...prev, email: event.target.value }))}
+                    placeholder="Email *"
+                    type="email"
+                    style={styles.quoteInput}
+                    className="quote-input"
+                  />
+                  <input
+                    value={customForm.company}
+                    onChange={(event) => setCustomForm((prev) => ({ ...prev, company: event.target.value }))}
+                    placeholder="Empresa / Organización"
+                    style={styles.quoteInput}
+                    className="quote-input"
+                  />
+                  <textarea
+                    value={customForm.details}
+                    onChange={(event) => setCustomForm((prev) => ({ ...prev, details: event.target.value }))}
+                    placeholder="Contanos qué necesitás *"
+                    style={{ ...styles.quoteInput, ...styles.quoteTextarea }}
+                    className="quote-input"
+                  />
+                </div>
+                <a
+                  href={`https://wa.me/5493886576724?text=${encodeURIComponent(customMessage)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={styles.quotePrimaryBtn}
+                  className="quote-primary-btn"
+                >
+                  Enviar solicitud
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* TESTIMONIALS: guardado temporalmente para reactivar más adelante. */}
-      {false && (
-        <section style={styles.testimonials} id="proyectos" className="testimonials-section">
+      {SHOW_TESTIMONIALS && (
+        <section style={styles.testimonials} id="proyectos" className="testimonials-section reveal">
           <div style={styles.container}>
             <div style={styles.sectionHeader}>
               <div style={styles.sectionLabel}>VOCES DE CLIENTES</div>
@@ -419,7 +1048,7 @@ export default function TSoftware() {
       )}
 
       {/* CTA BANNER */}
-      <section style={styles.ctaBanner} id="contacto" className="cta-section">
+      <section style={styles.ctaBanner} id="contacto" className="cta-section reveal">
         <div style={styles.ctaBannerGlow} />
         <div style={styles.ctaContent} className="cta-content">
           <div style={styles.sectionLabel}>EMPEZÁ HOY</div>
@@ -437,7 +1066,7 @@ export default function TSoftware() {
       </section>
 
       {/* FOOTER */}
-      <footer style={styles.footer} className="footer">
+      <footer style={styles.footer} className="footer reveal">
         <div style={styles.footerTop} className="footer-top">
           <div style={styles.footerBrand}>
             <Logo size={36} src={theme === "light" ? logoLight : tsoftwareLogo} />
@@ -532,7 +1161,13 @@ const css = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
   body {
+    overflow: hidden;
+    width: 100%;
     background: #000;
     color: #fff;
   }
@@ -543,6 +1178,54 @@ const css = `
   .slide-up-delay { animation: slideUp 0.8s 0.15s ease both; }
   .slide-up-delay-2 { animation: slideUp 0.8s 0.3s ease both; }
   .slide-up-delay-3 { animation: slideUp 0.8s 0.45s ease both; }
+
+  .reveal,
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(34px);
+    filter: blur(8px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+      filter 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform, filter;
+  }
+
+  .reveal.is-visible,
+  .reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  .reveal-item {
+    transform: translateY(28px) scale(0.985);
+  }
+
+  .reveal-item.is-visible {
+    transform: translateY(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in,
+    .slide-up,
+    .slide-up-delay,
+    .slide-up-delay-2,
+    .slide-up-delay-3,
+    .scroll-hint,
+    .intro-orb-logo,
+    .intro-orb-ring-tech-a,
+    .intro-orb-ring-tech-b,
+    .reveal,
+    .reveal-item {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
 
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -560,6 +1243,21 @@ const css = `
 
   .nav-link { transition: color 0.2s; }
   .nav-link:hover { color: #fff !important; }
+  .nav-icon-link { transition: color 0.2s, border-color 0.2s, background 0.2s !important; }
+  .nav-icon-link:hover { border-color: #2a2a2a !important; background: rgba(255,255,255,0.04) !important; }
+  .nav-dropdown-button { transition: color 0.2s, border-color 0.2s, background 0.2s !important; }
+  .nav-dropdown-button:hover,
+  .nav-dropdown-button-open { color: #fff !important; border-color: #2a2a2a !important; background: rgba(255,255,255,0.04) !important; }
+  .nav-dropdown-chevron { transition: transform 0.2s ease !important; }
+  .nav-dropdown-button-open .nav-dropdown-chevron { transform: rotate(180deg); }
+  .nav-dropdown-menu { animation: dropdownIn 0.18s ease both; }
+  .nav-dropdown-item { transition: background 0.2s, border-color 0.2s, transform 0.2s !important; }
+  .nav-dropdown-item:hover { background: #0a0a0a !important; border-color: #2a2a2a !important; transform: translateY(-1px); }
+
+  @keyframes dropdownIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
   .theme-toggle { transition: all 0.2s !important; }
   .theme-toggle:hover { transform: translateY(-1px); }
   .theme-icon { display: inline-flex; align-items: center; justify-content: center; }
@@ -575,6 +1273,24 @@ const css = `
 
   .service-arrow { transition: transform 0.2s !important; }
   .service-card:hover .service-arrow { transform: translate(4px,-4px) !important; }
+
+  .solution-card,
+  .benefit-item,
+  .faq-item { transition: all 0.25s ease !important; }
+  .solution-card:hover,
+  .benefit-item:hover,
+  .faq-item:hover { transform: translateY(-4px); background: #080808 !important; }
+
+  .quote-tab,
+  .quote-addon,
+  .quote-primary-btn { transition: all 0.2s ease !important; }
+  .quote-tab:hover,
+  .quote-addon:hover { border-color: rgba(255,255,255,0.28) !important; background: #0a0a0a !important; }
+  .quote-primary-btn:hover { transform: translateY(-1px); background: #e0e0e0 !important; }
+  .quote-addon strong,
+  .quote-total-box strong { color: inherit; font-size: 0.95rem; }
+  .quote-addon small,
+  .quote-total-box small { display: block; color: #777; font-size: 0.78rem; line-height: 1.45; margin-top: 4px; }
 
   .about-card { transition: transform 0.3s !important; }
   .about-card:hover { transform: translateY(-4px) !important; }
@@ -696,6 +1412,7 @@ const css = `
     .about-section,
     .services-section,
     .process-section,
+    .quote-section,
     .testimonials-section,
     .cta-section,
     .footer {
@@ -813,6 +1530,11 @@ const css = `
     }
 
     .services-grid,
+    .solutions-grid,
+    .benefits-grid,
+    .faq-grid,
+    .quote-layout,
+    .custom-quote-layout,
     .testimonials-grid,
     .process-grid,
     .footer-links {
@@ -820,8 +1542,54 @@ const css = `
     }
 
     .service-card,
-    .testimonial-card {
+    .solution-card,
+    .testimonial-card,
+    .benefit-item,
+    .faq-item {
       padding: 22px !important;
+    }
+
+    .split-header {
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+      margin-bottom: 36px !important;
+    }
+
+    .quote-layout,
+    .custom-quote-layout {
+      gap: 28px !important;
+    }
+
+    .quote-step-card,
+    .quote-summary {
+      padding: 22px !important;
+    }
+
+    .quote-tabs {
+      width: 100% !important;
+    }
+
+    .quote-tab {
+      flex: 1 !important;
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+
+    .quote-addon {
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+      text-align: left !important;
+    }
+
+    .quote-primary-btn {
+      width: 100% !important;
+      text-align: center !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+    }
+
+    .quote-includes {
+      grid-template-columns: 1fr !important;
     }
 
     .process-step {
@@ -928,6 +1696,13 @@ const css = `
   .light-mode .footer-brand-name,
   .light-mode .testimonial-name,
   .light-mode .process-title,
+  .light-mode .solution-title,
+  .light-mode .benefit-title,
+  .light-mode .faq-question,
+  .light-mode .quote-step-title,
+  .light-mode .quote-summary-title,
+  .light-mode .quote-info-title,
+  .light-mode .custom-title,
   .light-mode .service-title {
     color: #111 !important;
   }
@@ -943,7 +1718,13 @@ const css = `
   .light-mode .footer-link,
   .light-mode .footer-brand-sub,
   .light-mode .footer-copy,
-  .light-mode .logo-tag {
+  .light-mode .logo-tag,
+  .light-mode .solution-point,
+  .light-mode .solution-tag,
+  .light-mode .quote-text,
+  .light-mode .quote-note,
+  .light-mode .quote-summary-sub,
+  .light-mode .quote-info-text {
     color: #222 !important;
   }
 
@@ -959,13 +1740,33 @@ const css = `
     color: #fff !important;
   }
 
+  .light-mode .nav-icon-link:hover {
+    background: rgba(255,255,255,0.08) !important;
+  }
+
+  .light-mode .nav-dropdown-button {
+    color: #777 !important;
+  }
+
+  .light-mode .nav-dropdown-button:hover,
+  .light-mode .nav-dropdown-button-open {
+    color: #fff !important;
+    background: rgba(255,255,255,0.08) !important;
+  }
+
   .light-mode .nav-scrolled .nav-brand,
-  .light-mode .nav-scrolled .nav-link {
+  .light-mode .nav-scrolled .nav-link,
+  .light-mode .nav-scrolled .nav-icon-link,
+  .light-mode .nav-scrolled .nav-dropdown-button {
     color: #111 !important;
   }
 
-  .light-mode .nav-scrolled .nav-link:hover {
+  .light-mode .nav-scrolled .nav-link:hover,
+  .light-mode .nav-scrolled .nav-icon-link:hover,
+  .light-mode .nav-scrolled .nav-dropdown-button:hover,
+  .light-mode .nav-scrolled .nav-dropdown-button-open {
     color: #000 !important;
+    background: #f5f5f5 !important;
   }
 
   .light-mode .nav-scrolled .burger-btn span {
@@ -1063,6 +1864,18 @@ const css = `
 
   .light-mode .logo-tag,
   .light-mode .service-card,
+  .light-mode .solution-card,
+  .light-mode .benefit-item,
+  .light-mode .faq-item,
+  .light-mode .solution-point,
+  .light-mode .quote-step-card,
+  .light-mode .quote-summary,
+  .light-mode .quote-tab,
+  .light-mode .quote-addon,
+  .light-mode .quote-info-box,
+  .light-mode .quote-total-box,
+  .light-mode .quote-input,
+  .light-mode .quote-select,
   .light-mode .testimonial-card,
   .light-mode .about-card,
   .light-mode .footer-icon-link {
@@ -1072,6 +1885,11 @@ const css = `
   }
 
   .light-mode .testimonial-card:hover,
+  .light-mode .solution-card:hover,
+  .light-mode .benefit-item:hover,
+  .light-mode .faq-item:hover,
+  .light-mode .quote-tab:hover,
+  .light-mode .quote-addon:hover,
   .light-mode .about-card:hover {
     background: #ededed !important;
     border-color: #d8d8d8 !important;
@@ -1107,6 +1925,18 @@ const css = `
     color: #000 !important;
   }
 
+  .light-mode .quote-tab-active,
+  .light-mode .quote-addon-active {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: #111 !important;
+  }
+
+  .light-mode .quote-primary-btn {
+    background: #111 !important;
+    color: #fff !important;
+  }
+
   .light-mode .about-card:hover .about-point-dot {
     color: #000 !important;
   }
@@ -1132,6 +1962,30 @@ const css = `
 
   .light-mode .mobile-menu a {
     color: #222 !important;
+  }
+
+  .light-mode .nav-dropdown-menu {
+    background: #fff !important;
+    border-color: #e5e5e5 !important;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.12) !important;
+  }
+
+  .light-mode .nav-dropdown-item {
+    background: #fff !important;
+    border-color: #eee !important;
+  }
+
+  .light-mode .nav-dropdown-item:hover {
+    background: #f5f5f5 !important;
+    border-color: #ddd !important;
+  }
+
+  .light-mode .nav-dropdown-item span:first-child {
+    color: #111 !important;
+  }
+
+  .light-mode .nav-dropdown-item span:last-child {
+    color: #555 !important;
   }
 
   .light-mode .intro-title {
@@ -1298,7 +2152,7 @@ const css = `
 `;
 
 const styles = {
-  root: { fontFamily: "'Outfit', sans-serif", background: "transparent", color: "#fff", overflowX: "hidden", minHeight: "100vh", position: "relative" },
+  root: { fontFamily: "'Outfit', sans-serif", background: "transparent", color: "#fff", minHeight: "100vh", position: "relative" },
   pageGrid: { position: "fixed", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px)", backgroundSize: "40px 40px", pointerEvents: "none", zIndex: 0 },
   pageContent: { position: "relative", zIndex: 1 },
 
@@ -1307,13 +2161,24 @@ const styles = {
   navInner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", height: 64, display: "flex", alignItems: "center", gap: 32 },
   navLogo: { display: "flex", alignItems: "center", gap: 10, textDecoration: "none" },
   navBrand: { fontSize: 12, fontWeight: 500, letterSpacing: "0.24em", color: "#fff" },
-  navLinks: { display: "flex", gap: 28, marginLeft: "auto" },
-  navLink: { fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400 },
+  navLinks: { display: "flex", gap: 22, marginLeft: "auto", alignItems: "center" },
+  navLink: { minHeight: 34, display: "inline-flex", alignItems: "center", fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400 },
+  navIconLink: { minHeight: 34, display: "inline-flex", alignItems: "center", gap: 7, fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400, border: "0.5px solid transparent", borderRadius: 6, padding: "0 9px" },
+  navIconSymbol: { fontSize: 15, lineHeight: 1, display: "inline-flex", alignItems: "center" },
+  navDropdownWrap: { position: "relative", display: "flex", alignItems: "center", minHeight: 34 },
+  navDropdownButton: { minHeight: 34, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: "#777", textDecoration: "none", letterSpacing: "0.08em", fontWeight: 400, background: "transparent", border: "0.5px solid transparent", borderRadius: 6, padding: "0 9px", cursor: "pointer", fontFamily: "'Outfit', sans-serif", lineHeight: 1 },
+  navDropdownChevron: { display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, lineHeight: 1, transformOrigin: "center" },
+  navDropdownMenu: { position: "absolute", top: "calc(100% + 14px)", left: -16, width: 276, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 8, display: "flex", flexDirection: "column", gap: 6, boxShadow: "0 18px 50px rgba(0,0,0,0.45)", zIndex: 140 },
+  navDropdownItem: { display: "flex", flexDirection: "column", gap: 4, background: "#070707", border: "0.5px solid #111", borderRadius: 8, padding: "11px 12px", textDecoration: "none" },
+  navDropdownItemTitle: { color: "#fff", fontSize: 13, fontWeight: 600, letterSpacing: "0.02em" },
+  navDropdownItemSub: { color: "#777", fontSize: 11, lineHeight: 1.35 },
   themeToggle: { marginLeft: 24, width: 34, height: 34, border: "0.5px solid #2a2a2a", color: "#fff", background: "#111", borderRadius: "50%", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", lineHeight: 1, flexShrink: 0 },
   navCta: { fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: "#000", background: "#fff", padding: "8px 20px", borderRadius: 4, textDecoration: "none", textTransform: "uppercase" },
   burger: { display: "none", flexDirection: "column", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 4 },
   burgerLine: { width: 22, height: 1.5, background: "#fff", transition: "all 0.3s", display: "block" },
   mobileMenu: { background: "#000", borderTop: "0.5px solid #1a1a1a", padding: "16px 24px", display: "flex", flexDirection: "column", gap: 12 },
+  mobileMenuDivider: { height: 0.5, background: "#1a1a1a", margin: "4px 0" },
+  mobileMenuLabel: { fontSize: 10, color: "#555", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace", paddingTop: 4 },
   mobileLink: { fontSize: 15, color: "#aaa", textDecoration: "none", padding: "8px 0" },
 
   // INTRO POSTER
@@ -1393,6 +2258,26 @@ const styles = {
   serviceDesc: { fontSize: 13, color: "#8a8a8a", lineHeight: 1.7, flex: 1 },
   serviceArrow: { fontSize: 18, color: "#666", marginTop: 8, display: "block" },
 
+  // DIGITAL SOLUTIONS
+  solutions: { padding: "100px 24px", borderTop: "0.5px solid #111", borderBottom: "0.5px solid #111" },
+  splitHeader: { display: "grid", gridTemplateColumns: "1fr minmax(280px, 430px)", gap: 40, alignItems: "end", marginBottom: 48 },
+  splitHeaderText: { fontSize: 15, color: "#777", lineHeight: 1.8, fontWeight: 300 },
+  solutionsGrid: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 16 },
+  solutionCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28, display: "flex", flexDirection: "column", gap: 16, minHeight: 330 },
+  solutionTag: { width: "fit-content", fontSize: 10, color: "#aaa", border: "0.5px solid #222", borderRadius: 4, padding: "5px 10px", letterSpacing: "0.14em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
+  solutionTitle: { fontSize: 21, fontWeight: 500, lineHeight: 1.22, textTransform: "uppercase" },
+  solutionDesc: { fontSize: 14, color: "#8a8a8a", lineHeight: 1.75, fontWeight: 300, flex: 1 },
+  solutionPoints: { display: "flex", flexWrap: "wrap", gap: 8, paddingTop: 8 },
+  solutionPoint: { fontSize: 11, color: "#888", border: "0.5px solid #222", borderRadius: 4, padding: "6px 9px", background: "#070707", fontFamily: "'Space Mono', monospace" },
+
+  // BENEFITS
+  benefits: { padding: "100px 24px" },
+  benefitsGrid: { display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 16 },
+  benefitItem: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 26, minHeight: 240 },
+  benefitIndex: { fontSize: 13, color: "#444", fontFamily: "'Space Mono', monospace", marginBottom: 30 },
+  benefitTitle: { fontSize: 17, fontWeight: 500, marginBottom: 12, textTransform: "uppercase" },
+  benefitDesc: { fontSize: 13, color: "#777", lineHeight: 1.75 },
+
   // PROCESS
   process: { padding: "100px 24px" },
   processGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 0, marginTop: 60, position: "relative" },
@@ -1402,6 +2287,56 @@ const styles = {
   processBody: {},
   processTitle: { fontSize: 16, fontWeight: 500, marginBottom: 8 },
   processDesc: { fontSize: 13, color: "#777", lineHeight: 1.7 },
+
+  // FAQ
+  faq: { padding: "100px 24px", borderTop: "0.5px solid #111" },
+  faqGrid: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 },
+  faqItem: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12, padding: 28 },
+  faqQuestion: { fontSize: 17, fontWeight: 500, marginBottom: 10, textTransform: "uppercase" },
+  faqAnswer: { fontSize: 14, color: "#777", lineHeight: 1.75 },
+
+  // QUOTE
+  quote: { padding: "100px 24px", borderTop: "0.5px solid #111" },
+  quoteHero: { textAlign: "center", maxWidth: 760, margin: "0 auto 32px", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 },
+  quoteBadge: { display: "inline-flex", width: "fit-content", color: "#aaa", border: "0.5px solid #222", borderRadius: 99, padding: "6px 14px", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", fontFamily: "'Space Mono', monospace" },
+  quoteText: { fontSize: 15, color: "#777", lineHeight: 1.85, fontWeight: 300, maxWidth: 680 },
+  quoteTabs: { width: "fit-content", margin: "0 auto 48px", display: "inline-flex", gap: 4, padding: 4, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 12 },
+  quoteTab: { border: "0.5px solid transparent", borderRadius: 10, background: "transparent", color: "#777", padding: "11px 22px", fontSize: 13, fontWeight: 600, fontFamily: "'Outfit', sans-serif", cursor: "pointer" },
+  quoteTabActive: { background: "#fff", color: "#000", borderColor: "#fff" },
+  quoteLayout: { display: "grid", gridTemplateColumns: "minmax(0, 1fr) 380px", gap: 28, alignItems: "start" },
+  quoteSteps: { display: "flex", flexDirection: "column", gap: 24 },
+  quoteStepCard: { background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 16, padding: 30, display: "flex", flexDirection: "column", gap: 20 },
+  quoteStepTitleRow: { display: "flex", alignItems: "center", gap: 14 },
+  quoteStepNumber: { width: 32, height: 32, borderRadius: "50%", background: "#fff", color: "#000", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 },
+  quoteStepTitle: { fontSize: 18, fontWeight: 600, color: "#fff", lineHeight: 1.3 },
+  quoteSelect: { width: "100%", height: 50, background: "#070707", color: "#fff", border: "0.5px solid #222", borderRadius: 8, padding: "0 14px", fontSize: 14, fontFamily: "'Outfit', sans-serif", outline: "none" },
+  quoteInfoBox: { background: "#070707", border: "0.5px solid #222", borderRadius: 12, padding: 22 },
+  quoteInfoTitle: { fontSize: 16, color: "#fff", fontWeight: 700, marginBottom: 8 },
+  quoteInfoText: { fontSize: 14, color: "#aaa", lineHeight: 1.7 },
+  quoteBestFor: { display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 },
+  quoteChip: { background: "#050505", border: "0.5px solid #222", borderRadius: 99, color: "#aaa", fontSize: 11, padding: "6px 10px", fontFamily: "'Space Mono', monospace" },
+  quoteIncludes: { display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8, marginTop: 16 },
+  quoteInclude: { color: "#aaa", fontSize: 13, lineHeight: 1.4 },
+  quoteAddonList: { display: "flex", flexDirection: "column", gap: 10 },
+  quoteAddon: { display: "grid", gridTemplateColumns: "1fr auto", gap: 18, alignItems: "center", background: "#070707", color: "#aaa", border: "0.5px solid #222", borderRadius: 10, padding: 16, textAlign: "left", cursor: "pointer", fontFamily: "'Outfit', sans-serif" },
+  quoteAddonActive: { background: "#111", color: "#fff", borderColor: "#fff" },
+  quoteSummary: { position: "sticky", top: 84, background: "#050505", border: "0.5px solid #1a1a1a", borderRadius: 18, padding: 28 },
+  quoteSummaryTitle: { fontSize: 19, fontWeight: 800, color: "#fff", marginBottom: 4 },
+  quoteSummarySub: { color: "#777", fontSize: 13, lineHeight: 1.6 },
+  quoteSummaryRow: { display: "flex", justifyContent: "space-between", gap: 16, padding: "10px 0", color: "#aaa", fontSize: 14 },
+  quoteDivider: { height: 0.5, background: "#222", margin: "14px 0" },
+  quoteTotalBox: { background: "#070707", border: "0.5px solid #222", borderRadius: 12, padding: 18, display: "flex", flexDirection: "column", gap: 8 },
+  quoteNote: { fontSize: 12, color: "#777", lineHeight: 1.65, margin: "16px 0" },
+  quoteContactGrid: { display: "grid", gap: 10, marginTop: 18 },
+  quoteInput: { width: "100%", minHeight: 46, background: "#070707", color: "#fff", border: "0.5px solid #222", borderRadius: 8, padding: "12px 14px", fontSize: 14, fontFamily: "'Outfit', sans-serif", outline: "none" },
+  quoteTextarea: { minHeight: 130, resize: "vertical" },
+  quotePrimaryBtn: { width: "100%", display: "inline-block", textAlign: "center", marginTop: 16, fontSize: 12, fontWeight: 600, color: "#000", background: "#fff", padding: "14px 20px", borderRadius: 10, textDecoration: "none", letterSpacing: "0.08em", textTransform: "uppercase" },
+  quoteEmpty: { textAlign: "center", padding: "36px 8px", color: "#555", fontSize: 14, lineHeight: 1.65 },
+  quoteEmptyIcon: { fontSize: 42, marginBottom: 12, color: "#333" },
+  customQuoteLayout: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, alignItems: "start" },
+  customTitle: { fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 700, lineHeight: 1.15, textTransform: "uppercase", color: "#fff" },
+  customFeatureList: { display: "grid", gap: 12, marginTop: 8 },
+  customFeature: { color: "#aaa", fontSize: 14, lineHeight: 1.5 },
 
   // TESTIMONIALS
   testimonials: { padding: "100px 24px", background: "transparent" },
