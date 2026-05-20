@@ -754,7 +754,6 @@ Detalle: ${customForm.details || "No informado"}`;
                 </div>
                 <h3 style={styles.serviceTitle} className="service-title">{s.title}</h3>
                 <p style={styles.serviceDesc}>{s.desc}</p>
-                <div style={styles.serviceArrow} className="service-arrow">→</div>
               </div>
             ))}
           </div>
@@ -1481,9 +1480,6 @@ const css = `
     outline: none !important;
   }
 
-  .service-arrow { transition: transform 0.2s !important; }
-  .service-card:hover .service-arrow { transform: translate(4px,-4px) !important; }
-
   .solution-card,
   .benefit-item,
   .faq-item { transition: all 0.25s ease !important; }
@@ -2174,10 +2170,6 @@ const css = `
     color: #333 !important;
   }
 
-  .light-mode .service-card:hover .service-arrow {
-    color: #000 !important;
-  }
-
   .light-mode .quote-tab-active,
   .light-mode .quote-addon-active {
     background: #111 !important;
@@ -2540,8 +2532,6 @@ const styles = {
   serviceIcon: { width: 46, height: 46, borderRadius: 12, color: "#fff", background: "rgba(255,255,255,0.06)", border: "0.5px solid rgba(255,255,255,0.14)", display: "inline-flex", alignItems: "center", justifyContent: "center" },
   serviceTitle: { fontSize: 17, fontWeight: 500 },
   serviceDesc: { fontSize: 13, color: "#8a8a8a", lineHeight: 1.7, flex: 1 },
-  serviceArrow: { fontSize: 18, color: "#666", marginTop: 8, display: "block" },
-
   // DIGITAL SOLUTIONS
   solutions: { padding: "100px 24px", borderTop: "0.5px solid #111", borderBottom: "0.5px solid #111" },
   splitHeader: { display: "grid", gridTemplateColumns: "1fr minmax(280px, 430px)", gap: 40, alignItems: "end", marginBottom: 48 },
